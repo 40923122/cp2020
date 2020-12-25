@@ -160,7 +160,7 @@ variables:
 <p id="N105CC" lang="">Passwords can be verified by the local system, such as by using a username/password on a local PC or an access code number for a digital door lock. Passwords can also be verified by using a remote server, such as when a domain user logs in to a workstation connected to a domain controller. The local system does not verify the password; the domain controller does.</p>
 <p id="N105CF" lang="">Passwords must be complex, containing a mixture of uppercase and lowercase letters, numbers, and symbols. Additionally, passwords should be long: they should be at least 6–8 characters in length, but more characters provide a more secure password. It is imperative to avoid dictionary words, as these are easier to guess, and consider using a passphrase if possible. One technique to create a strong password is to pick a song or poem and use the first letter from each word as the password, as well as incorporating some numbers and symbols. This makes a strong, hard-to-guess password.</p>
 <p id="N105D2" lang="">The system administrator has the ability to configure the password system in Windows to create rules that the passwords must follow. These settings should be in line with company policy and should follow the best practices mentioned above, as well as adding some new requirements. One practice is requiring passwords to be renewed every 60 days. Setting a maximum password age eliminates threats from old access lists or former employees. The system can be set up to prompt users to change their passwords approximately 14 days prior to expiration. Also, the system administrator can set the system to require a minimum password length, such as six characters or 14 characters. There is an option to require complex passwords — passwords that require uppercase, lowercase, numeric, and symbolic characters. Another option is to prevent old passwords from being reused, with a setting that can dictate how many old passwords are remembered by the system. This is called password history. The system administrator can set the limit on password history up to 25 previous passwords in memory. Finally, if an attacker is trying to guess a user’s password, there is a setting that will prevent this by locking the user’s account if a certain number of unsuccessful logins occur within a certain period of time. For example, if four failed logins occur within 15 minutes, the system might require a 60-minute wait before letting the user log in (even if the user tries the correct password) or might require the system administrator to reset the password.</p>
-<h2>P65</h2>
+<h2>P65英</h2>
 <p><a class="module-heading" href="https://oli.cmu.edu/jcourse/webui/syllabus/module.do?context=d87f14f30a0001dc2c500010a919a200">PCS 14<span> </span><strong>/</strong></a>Education</p>
 <p id="N10594" lang="">In addition to securing a wireless network, it is also important to secure a wired network. Just like the wireless network, the wired switch can be configured to support MAC address filtering. Additionally, any unused network ports should be turned off, as this will prevent a local attacker from connecting to an available port to use in their attacks. Also, cover any unused network jacks. For example, you would not want an open and available network jack in the waiting area of your business to be used by a would-be attacker. Finally, consider if your network should use static or dynamic addressing.</p>
 <p id="N10597" lang="">Static IP addresses are more secure, because they require an attacker to know the manual configuration for your network to gain access, but it is more time consuming for administrators, especially if your organization has a very large network. Static IPs should be used at a minimum for servers and devices that must be regularly contacted for their services, such as shared scanners and printers. If your organization uses dynamic addresses, it is a good practice to limit the scope of the DHCP server. This will allow clients to gain access to the network, but will minimize the number of overall IPs available.</p>
@@ -186,6 +186,93 @@ variables:
 </div>
 <div>
 <div class="youtube" id="uwrap__i_2"><iframe allowfullscreen="allowfullscreen" data-mce-fragment="1" enablejsapi="1" frameborder="0" height="360" id="_i_2" src="https://www.youtube.com/embed/rBG2xR9o9h0?enablejsapi=1&amp;rel=0&amp;vq=large" width="640"></iframe></div>
+<h2 class="youtube">p67英</h2>
+<p><a class="module-heading" href="https://oli.cmu.edu/jcourse/webui/syllabus/module.do?context=d87f15070a0001dc73439cfb2a134ac0">PCS 15<span> </span><strong>/</strong></a>Threats and Practices</p>
+<p><span title="Quick scroll up">Overview</span></p>
+<p>In this module, we will explore different types of technical and nontechnical security threats. We will also discuss threats such as Trojan horses, which combine technical and nontechnical attack techniques. Additionally, we will learn about strategies to help prevent attacks.</p>
+<p>Social Engineering</p>
+<div class="section" id="social_engineering">
+<div class="sectionContain">
+<p id="N105AF" lang="">Social engineering is a major security threat. Social engineering refers to the use of a variety of techniques to convince computer users to provide access to their systems. This was popularized by computer and network hacker Kevin Mitnick, who said, “People are prone to taking mental shortcuts. They may know that they shouldn't give out certain information, but the fear of not being nice, the fear of appearing ignorant, the fear of a perceived authority figure — all these are triggers, which can be used by a social engineer to convince a person to override established security procedures.” For example, if a hacker walks up to the secured area of an office building dressed as a package delivery man with his hands full, how many people do you think would open the door to let him in? This type of deception is at the heart of social engineering.</p>
+<div class="section" id="N105B2">
+<div class="sectionContain">Pretexting
+<p id="N105B9" lang="">Pretexting is a form of social engineering. Pretexting occurs when a social engineer presents some limited information to an authorized user to gain access to her computer system or gain access to the business.</p>
+<div class="examplewrap">
+<div class="exHead"><span class="scnReader">EXAMPLE</span></div>
+<div class="example clearfix">
+<h5></h5>
+<div>
+<p id="N105BE" lang="">A receptionist receives a phone call and the caller says, “Hello, my name is Bob from the IT help desk. We have detected that your computer password has been compromised and needs to be changed. First, can you verify your name and date of birth for me?” At this point, the receptionist provides those details, which can be used to gain access to other accounts. As the call continues, the attacker asks for the receptionist’s username and password, to “verify” that the account has been corrupted. In the end, the receptionist’s account has been compromised by the caller.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="N105C4">
+<div class="sectionContain">Phishing
+<p id="N105CB" lang="">Phishing is another form of social engineering. Phishing attacks are an effective and easy way for an attacker to gain access to a system or gain information about a user’s account or financial data. Traditionally, phishing involves the end user receiving an email stating his account has been compromised, or another similar premise. In the email, there is a link to click to reset the password or to log in to his account to verify data.</p>
+<p id="N105CE" lang="">When the user clicks the link, he is taken to a website that may look like his bank or other service, but the address may be slightly incorrect. For example, instead of taking the user to Facebook.com, it may be Facebooks.com. When the user enters his username and password, the user is then forwarded to the correct site, but the attackers can now use his compromised credentials in future attacks. In the case of a bank or brokerage account, the attackers can now access that account and transfer the money in the accounts to themselves or collect other details in order to monetize the exploit.</p>
+</div>
+</div>
+<div class="section" id="baiting">
+<div class="sectionContain">Baiting
+<p id="N105DB" lang="">Baiting occurs when an attacker leaves physical media — such as CDs, DVDs, or USB thumb drives — lying around for a victim to find. Once the victim finds the media, she is curious to find out what is on it (either to learn who the owner is to return it, or to see the confidential data enclosed on the media). Often, these tainted devices could be presented to a victim in a myriad of seemingly legitimate ways, such as a free gift or as a software update. The more enticing the device, such as a smartphone being left around, or the more believable the scenario under which the victim obtains the device (such as a free raffle), the more difficult it is for the victim to recognize the situation as a potential baiting scheme. The best way to prevent a baiting attack is to ensure employees are aware they exist, so they can resist the temptation.</p>
+</div>
+</div>
+<div class="section" id="N105E0">
+<div class="sectionContain">Shoulder Surfing
+<p id="N105E7" lang="">Shoulder surfing occurs when an attacker attempts to gain access to confidential information by looking over a user’s “shoulder” at the user’s screen, keypad, or keyboard. An example is someone looking over your shoulder at the ATM to see your PIN as you type it on the keypad. Another example might be if you are looking at the screen of a billing clerk at a business. The clerk may still have another person’s account (and financial information) up on the screen. Some shoulder surfers act covertly by using mirrors, peeking around corners, or even having hidden video cameras to capture the detailed information they seek. The best defense against this type of attack is to be aware of your surroundings and ensure people remain at a safe visual distance from your terminal. To help prevent shoulder surfing on your laptop and mobile devices, you can also use privacy screen protectors. These special screen protectors prevent screen viewing at an angle, making it difficult for anyone other than the user, who is looking directly at the screen, to see the display.</p>
+</div>
+</div>
+<div class="section" id="N105EC">
+<div class="sectionContain">Tailgating and Piggybacking
+<p id="N105F3" lang="">Tailgating occurs when an attacker attempts to gain access to a secure facility by following closely behind an authorized person without her consent. If this access is gained<span> </span><em class="italic" lang="">with<span> </span></em>the consent of the authorized person, this is called piggybacking. A great example of this may be when a delivery person, like a pizza delivery or flower delivery person, asks for another employee to hold the door (after the authorized person swiped an ID badge), because the delivery person’s hands are too full of the product being delivered. By doing this, the “delivery person” is able to gain access to the building without authorization. This attack relies on the inherent kindness most people have, and it is hard to teach employees to forgo this common courtesy.</p>
+</div>
+</div>
+</div>
+</div>
+<h2 class="youtube">p68英</h2>
+<div class="youtube">
+<p><a class="module-heading" href="https://oli.cmu.edu/jcourse/webui/syllabus/module.do?context=d87f15070a0001dc73439cfb2a134ac0">PCS 15<span> </span><strong>/</strong></a>Malware</p>
+<p id="N105AC" lang="">Social engineering is a very effective way to gain access to a system without relying exclusively on the technical realm. In addition to social engineering, an attacker may also engineer a technical attack through malware. Notably, an attack combining social engineering with malware can be a significant threat.</p>
+<p id="N105AF" lang="">The term malware is a combination of the words malicious and software, and it is used to describe any software used to disrupt or gain unauthorized access to a computer or network. There are numerous types of malware. In this lesson, we will discuss viruses, worms, Trojan horses, rootkits, spyware, remote access, adware, grayware, and spam.</p>
+<p lang="">Viruses</p>
+<div class="section" id="viruses">
+<div class="sectionContain">
+<p id="N105BA" lang="">Viruses are software programs that infect files in an operating system, wreaking havoc on the system and doing what an attacker wishes. Viruses require replication to spread, and this can only be accomplished when a user executes an infected program containing the virus. Worms are similar to viruses, but they self-replicate across a network. Worms are a very effective type of malware, because they can self-replicate without any user intervention. This also makes worms very dangerous. Trojan horses are programs that claim to be useful utilities but actually install harmful programs on your computer, including spyware, remote access, and rootkits. Trojan horses are usually combined with social engineering, such as phishing, and are used as a delivery mechanism for more serious threats to your computer and network.</p>
+<p lang=""><strong></strong>Rootkits</p>
+</div>
+</div>
+<div class="section" id="N105BF">
+<div class="sectionContain">
+<p id="N105C6" lang="">Rootkits are a concealment method used by many types of malware to prevent detection by normal antivirus and antimalware programs. Rootkits tend to overwrite and rename system files, replacing these necessary files with themselves. This embeds the malware into the operating system, making it difficult to detect through standard antivirus software and instead requires advanced detection techniques outside of the normal operating system to detect and remove this variation of malware. Rootkits are activated each time a system boots up.</p>
+<div class="imagewrap"><span class="image"><img alt="Screenshot of a rootkit. The image shows white and green text on a black background." class="popimg" id="_i_0" onclick="loadImageFromPage(this);" src="https://oli.cmu.edu/repository/webcontent/d824e08a0a0001dc23651919041a0b35/PCS15/webcontent/PCS15/image1.png" title="Screenshot of a rootkit. The image shows white and green text on a black background."/></span>
+<p id="N105CE" lang="">Rootkit. Image used under CC-BY license from<span> </span><a href="https://flic.kr/p/eggseg" id="_i_1" lang="" target="_blank">Linux Screenshots</a>.</p>
+<p lang="">Spyware</p>
+</div>
+</div>
+</div>
+<div class="section" id="spyware">
+<div class="sectionContain">
+<p id="N105E0" lang="">Spyware is software that spies on system activities and transmits details of web searches or other activities to remote computers. A good indication that spyware has infected your computer is if you get multiple pop-up windows when browsing the Internet. Some of these pop-ups may offer you the ability to remove a virus or infection, but you should never use them. These are scams and usually are rogue or fake antivirus/antimalware products that often lead to a deeper infection across your computers and networks. Spyware also can slow down the performance of your computer, wasting valuable computing resources through bloated software code and spying activities.</p>
+<p lang="">Remote Access</p>
+</div>
+</div>
+<div class="section" id="N105E5">
+<div class="sectionContain">
+<p id="N105EC" lang="">Remote access malware programs enable unauthorized control of your system and can be used to set up networks of compromised computers. These malware programs are also known as botnets. Through remote access, attackers can control your computer, capture your keystrokes, turn on your webcam, and copy your files to their own machine, gaining access to your confidential records and accounts.</p>
+<p lang="">Adware, Grayware, and Spam</p>
+<div class="section" id="N105EF">
+<div class="sectionContain">
+<p id="N105F6" lang="">Adware is software that displays pop-up ads and banners related to your web searches and activities. Grayware is a generic term for dialers, joke programs, adware, and spyware programs. Spam is the unwanted receipt of emails from unknown entities, very similar to junk mail received in a physical form at your house. Spam can be malicious (such as trying to send you a virus), a scam (such as trying to get you to send money), or simply ridiculous (such as sending you jokes or other messages you didn’t desire).</p>
+<p id="N105F9" lang="">Spam is usually sent by an attacker hijacking a user’s email account by cracking their password, then using that account to send out the mass amounts of spam. For this reason, it is important to frequently change your email account passwords, to prevent a spammer from cracking your password and using your account.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="youtube">P69英</div>
+<div class="youtube"></div>
 </div>
 </div>
 </div>
