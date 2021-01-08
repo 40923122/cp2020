@@ -1039,7 +1039,7 @@ Hard Drive Data Destruction Methods</li>
 <p id="N106CA" lang=""><span><span>如果您需要格式化計算機中的單個驅動器，並且無法臨時刪除該驅動器並將其安裝到另一台計算機上，那麼最好的選擇是使用Windows安裝DVD上或Recovery分區中的Windows安裝程序工具。</span><span>如果從Windows安裝DVD引導計算機，則可以選擇在重新安裝Windows之前格式化驅動器的方法。</span></span></p>
 </div>
 </div>
-<h1>HW3</h1>
+<h1>HW3 Exercises</h1>
 <h2>25</h2>
 <div><i>Guessing Game Two</i></div>
 <div><i></i></div>
@@ -1055,7 +1055,1501 @@ Hard Drive Data Destruction Methods</li>
 <p>If you want to implement the optimal solution without thinking about it first, you can read this<span> </span><a href="https://en.wikipedia.org/wiki/Binary_search_algorithm">Wikipedia article on binary search</a>.</p>
 <p>Happy coding!</p>
 <p>Forgot how to<span> </span><a href="https://www.practicepython.org/about/">submit exercises</a>?</p>
-<br/><br/></div>
+<h2>26</h2>
+<p>Check Tic Tac Toe</p>
+<p>Exercise 26 (and Solution)</p>
+<p><em>This exercise is Part 2 of 4 of the Tic Tac Toe exercise series. The other exercises are:<span> </span><a href="https://www.practicepython.org/exercise/2014/12/27/24-draw-a-game-board.html">Part 1</a>,<span> </span><a href="https://www.practicepython.org/exercise/2015/11/26/27-tic-tac-toe-draw.html">Part 3</a>, and<span> </span><a href="https://www.practicepython.org/exercise/2016/08/03/29-tic-tac-toe-game.html">Part 4</a>.</em></p>
+<p>As you may have guessed, we are trying to build up to a full tic-tac-toe board. However, this is significantly more than half an hour of coding, so we’re doing it in pieces.</p>
+<p>Today, we will simply focus on checking whether someone has WON a game of Tic Tac Toe, not worrying about how the moves were made.</p>
+<p>If a game of Tic Tac Toe is represented as a list of lists, like so:</p>
+<figure class="highlight">
+<pre><code class="language-python" data-lang="python"><span class="n">game</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span></code></pre>
+</figure>
+<p>where a<span> </span><code class="highlighter-rouge">0</code><span> </span>means an empty square, a<span> </span><code class="highlighter-rouge">1</code><span> </span>means that player 1 put their token in that space, and a<span> </span><code class="highlighter-rouge">2</code><span> </span>means that player 2 put their token in that space.</p>
+<p>Your task this week: given a 3 by 3 list of lists that represents a Tic Tac Toe game board, tell me whether anyone has won, and tell me which player won, if any. A Tic Tac Toe win is 3 in a row - either in a row, a column, or a diagonal. Don’t worry about the case where TWO people have won - assume that in every board there will only be one winner.</p>
+<p>Here are some more examples to work with:</p>
+<figure class="highlight">
+<pre><code class="language-python" data-lang="python"><span class="n">winner_is_2</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+
+<span class="n">winner_is_1</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+
+<span class="n">winner_is_also_1</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+
+<span class="n">no_winner</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span>
+
+<span class="n">also_no_winner</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]<br/><br/></span></code></pre>
+</figure>
+<p>Topics</p>
+<p>This exercise is challenging, but doable with only lists (of lists)! Lists of lists are nearly the same as lists, just a bit trickier. Remember that to get the first element in a list called<span> </span><code class="highlighter-rouge">my_list = [5, 10, 15]</code>, you index it with a variable like so:</p>
+<figure class="highlight">
+<pre><code class="language-python" data-lang="python">	<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">my_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+	<span class="mi">5</span>
+	<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">my_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+	<span class="mi">15</span>
+	<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">my_list</span><span class="p">))</span>
+	<span class="mi">3</span></code></pre>
+</figure>
+<p>When working with lists of lists, it is the same! Say you have a list<span> </span><code class="highlighter-rouge">matrix = [[1, 2], [3, 4]]</code>. Then, take a look at this:</p>
+<figure class="highlight">
+<pre><code class="language-python" data-lang="python">	<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+	<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+	<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+	<span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+	<span class="o">&gt;&gt;&gt;</span> <span class="n">first_row</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+	<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">first_row</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+	<span class="mi">1</span>
+	<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+	<span class="mi">1</span>
+	<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+	<span class="mi">4</span></code></pre>
+</figure>
+<p>The cool part is that you can use double-indexing to read the elements from our list of lists<span> </span><code class="highlighter-rouge">matrix</code>! By indexing<span> </span><code class="highlighter-rouge">matrix[0][1]</code><span> </span>we are saying give me the 1st element of the 0th element of<span> </span><code class="highlighter-rouge">matrix</code>, which in this case is<span> </span><code class="highlighter-rouge">2</code>.</p>
+<p>Happy coding!</p>
+<p>Forgot how to<span> </span><a href="https://www.practicepython.org/about/">submit exercises</a>?</p>
+<p></p>
+<h2>27</h2>
+<div><i>Tic Tac Toe Draw</i></div>
+<p>Exercise 27 (and Solution)</p>
+<p><em>This exercise is Part 3 of 4 of the Tic Tac Toe exercise series. The other exercises are:<span> </span><a href="https://www.practicepython.org/exercise/2014/12/27/24-draw-a-game-board.html">Part 1</a>,<span> </span><a href="https://www.practicepython.org/exercise/2015/11/16/26-check-tic-tac-toe.html">Part 2</a>, and<span> </span><a href="https://www.practicepython.org/exercise/2016/08/03/29-tic-tac-toe-game.html">Part 4</a>.</em></p>
+<p>In a<span> </span><a href="https://www.practicepython.org/exercise/2015/11/16/26-check-tic-tac-toe.html">previous exercise</a><span> </span>we explored the idea of using a list of lists as a “data structure” to store information about a tic tac toe game. In a tic tac toe game, the “game server” needs to know where the<span> </span><code class="highlighter-rouge">X</code>s and<span> </span><code class="highlighter-rouge">O</code>s are in the board, to know whether player 1 or player 2 (or whoever is<span> </span><code class="highlighter-rouge">X</code><span> </span>and<span> </span><code class="highlighter-rouge">O</code><span> </span>won).</p>
+<p>There has also been an exercise about<span> </span><a href="https://www.practicepython.org/exercise/2014/12/27/24-draw-a-game-board.html">drawing the actual tic tac toe gameboard</a><span> </span>using text characters.</p>
+<p>The next logical step is to deal with handling user input. When a player (say player 1, who is<span> </span><code class="highlighter-rouge">X</code>) wants to place an<span> </span><code class="highlighter-rouge">X</code><span> </span>on the screen, they can’t just click on a terminal. So we are going to approximate this clicking simply by asking the user for a coordinate of where they want to place their piece.</p>
+<p>As a reminder, our tic tac toe game is really a list of lists. The game starts out with an empty game board like this:</p>
+<figure class="highlight">
+<pre><code class="language-python" data-lang="python"><span class="n">game</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span></code></pre>
+</figure>
+<p>The computer asks Player 1 (X) what their move is (in the format<span> </span><code class="highlighter-rouge">row,col</code>), and say they type<span> </span><code class="highlighter-rouge">1,3</code>. Then the game would print out</p>
+<figure class="highlight">
+<pre><code class="language-python" data-lang="python"><span class="n">game</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">X</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span></code></pre>
+</figure>
+<p>And ask Player 2 for their move, printing an<span> </span><code class="highlighter-rouge">O</code><span> </span>in that place.</p>
+<p>Things to note:</p>
+<ul>
+<li>For this exercise, assume that player 1 (the first player to move) will always be<span> </span><code class="highlighter-rouge">X</code><span> </span>and player 2 (the second player) will always be<span> </span><code class="highlighter-rouge">O</code>.</li>
+<li>Notice how in the example I gave coordinates for where I want to move starting from (1, 1) instead of (0, 0). To people who don’t program, starting to count at 0 is a strange concept, so it is better for the user experience if the row counts and column counts start at 1. This is not required, but whichever way you choose to implement this, it should be explained to the player.</li>
+<li>Ask the user to enter coordinates in the form “row,col” - a number, then a comma, then a number. Then you can use your Python skills to figure out which row and column they want their piece to be in.</li>
+<li>Don’t worry about checking whether someone won the game, but if a player tries to put a piece in a game position where there already is another piece, do not allow the piece to go there.</li>
+</ul>
+<p>Bonus:</p>
+<ul>
+<li>For the “standard” exercise, don’t worry about “ending” the game - no need to keep track of how many squares are full. In a bonus version, keep track of how many squares are full and automatically stop asking for moves when there are no more valid moves.</li>
+<li></li>
+</ul>
+<p>Concepts</p>
+<p>One review concept that is definitely needed (in addition to the<span> </span><a href="https://www.practicepython.org/exercise/2014/01/29/01-character-input.html">user input</a><span> </span>that is the core of the exercise) is the need to “split” strings.</p>
+<p>The user will input coordinates in the form “row,col”, which<span> </span><code class="highlighter-rouge">input()</code><span> </span>will then read in as a string. But we really want the numbers that come out of that string, to know which row and column to place the piece at.</p>
+<p>One approach is to use the idea of<span> </span><a href="https://www.practicepython.org/exercise/2014/03/12/06-string-lists.html">strings as lists</a><span> </span>to extract the row and column numbers. This works great if your row and column numbers are always single digits - the row will always be at index 0 and the column will always be at index 2. But this breaks when the numbers are larger than one digit (I know, not going to happen in tic tac toe, but it’s easy to image extending this to other games).</p>
+<p>Instead, there are two string manipulation functions that will help you:</p>
+<ol>
+<li><a href="https://docs.python.org/2/library/string.html#string.split"><code class="highlighter-rouge">.split()</code></a><span> </span>- Takes a string and returns a list, using the separator as the split criteria. So if you have a string<span> </span><code class="highlighter-rouge">name = "John Doe"</code><span> </span>and do<span> </span><code class="highlighter-rouge">name_list = name.split(" ")</code>,<span> </span><code class="highlighter-rouge">name_list</code><span> </span>will be<span> </span><code class="highlighter-rouge">["John", "Doe"]</code>. You can use any separator / split character you want. Just remember, that each of the elements returned back will be a string as well.</li>
+<li><a href="https://docs.python.org/2/library/string.html#string.strip"><code class="highlighter-rouge">.strip()</code></a><span> </span>- Takes a string and removes the whitespace on the left and right sides of it. So you have a string<span> </span><code class="highlighter-rouge">name = " Michele "</code>, and you do<span> </span><code class="highlighter-rouge">name = name.strip()</code>, and now<span> </span><code class="highlighter-rouge">name</code><span> </span>will just be<span> </span><code class="highlighter-rouge">"Michele"</code><span> </span>- nice and clean.</li>
+</ol>
+<p>I challenge you to figure out how to use them in the exercise!</p>
+<p>Happy coding!</p>
+<p>Forgot how to<span> </span><a href="https://www.practicepython.org/about/">submit exercises</a>?</p>
+<br/>
+<h1>HW3 Solutions</h1>
+<h2>25</h2>
+<p>Guessing Game Two Solutions</p>
+<p>Exercise 25</p>
+<p>In<span> </span><a href="https://www.practicepython.org/exercise/2014/04/02/09-guessing-game-one.html">a previous exercise</a>, we’ve written a program that “knows” a number and asks a user to guess it.</p>
+<p>This time, we’re going to do exactly the opposite. You, the user, will have in your head a number between 0 and 100. The program will guess a number, and you, the user, will say whether it is too high, too low, or your number.</p>
+<p>At the end of this exchange, your program should print out how many guesses it took to get your number.</p>
+<p>As the writer of this program, you will have to choose how your program will strategically guess. A naive strategy can be to simply start the guessing at 1, and keep going (2, 3, 4, etc.) until you hit the number. But that’s not an optimal guessing strategy. An alternate strategy might be to guess 50 (right in the middle of the range), and then increase / decrease by 1 as needed. After you’ve written the program, try to find the optimal strategy! (We’ll talk about what is the optimal one next week with the solution.)</p>
+<p>Sample solution</p>
+<p>One user implemented an interesting strategy. Based on whether the number was lower or higher than the guess, randomly pick a number in that direction. This code is easy to read, even if it does not achieve the most efficient solution (and depends a little bit on randomness).</p>
+<div class="gist" id="gist28852334">
+<div class="gist-file">
+<div class="gist-data">
+<div class="js-gist-file-update-container js-task-list-container file-box">
+<div class="file my-2" id="file-guessinggametwo-py">
+<div class="Box-body p-0 blob-wrapper data type-python" itemprop="text">
+<table class="highlight tab-size js-file-line-container" data-paste-markdown-skip="" data-tab-size="8">
+<tbody>
+<tr>
+<td class="blob-num js-line-number" data-line-number="1" id="file-guessinggametwo-py-L1"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC1"><span class="pl-s">'''</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="2" id="file-guessinggametwo-py-L2"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC2"><span class="pl-s">In a previous exercise, we've written a program that 'knows' a number and asks a user to guess it.</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="3" id="file-guessinggametwo-py-L3"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC3"><span class="pl-s">This time, we're going to do exactly the opposite.</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="4" id="file-guessinggametwo-py-L4"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC4"><span class="pl-s">You, the user, will have in your head a number between 0 and 100.</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="5" id="file-guessinggametwo-py-L5"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC5"><span class="pl-s">The program will guess a number, and you, the user, will say whether it is too high, too low, or your number.</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="6" id="file-guessinggametwo-py-L6"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC6"><span class="pl-s"></span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="7" id="file-guessinggametwo-py-L7"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC7"><span class="pl-s">At the end of this exchange, your program should print out how many guesses it took to get your number.</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="8" id="file-guessinggametwo-py-L8"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC8"><span class="pl-s"></span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="9" id="file-guessinggametwo-py-L9"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC9"><span class="pl-s">As the writer of this program, you will have to choose how your program will strategically guess.</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="10" id="file-guessinggametwo-py-L10"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC10"><span class="pl-s">A naive strategy can be to simply start the guessing at 1, and keep going (2, 3, 4, etc.) until you hit the number.</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="11" id="file-guessinggametwo-py-L11"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC11"><span class="pl-s">But that's not an optimal guessing strategy.</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="12" id="file-guessinggametwo-py-L12"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC12"><span class="pl-s">An alternate strategy might be to guess 50 (right in the middle of the range), and then increase / decrease by 1 as needed.</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="13" id="file-guessinggametwo-py-L13"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC13"><span class="pl-s">After you've written the program, try to find the optimal strategy! (We'll talk about what is the optimal one next week with the solution.)</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="14" id="file-guessinggametwo-py-L14"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC14"><span class="pl-s">'''</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="15" id="file-guessinggametwo-py-L15"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC15"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="16" id="file-guessinggametwo-py-L16"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC16"><span class="pl-k">import</span> <span class="pl-s1">random</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="17" id="file-guessinggametwo-py-L17"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC17"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="18" id="file-guessinggametwo-py-L18"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC18"><span class="pl-c"># Awroken</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="19" id="file-guessinggametwo-py-L19"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC19"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="20" id="file-guessinggametwo-py-L20"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC20"><span class="pl-v">MINIMUM</span> <span class="pl-c1">=</span> <span class="pl-c1">0</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="21" id="file-guessinggametwo-py-L21"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC21"><span class="pl-v">MAXIMUM</span> <span class="pl-c1">=</span> <span class="pl-c1">100</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="22" id="file-guessinggametwo-py-L22"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC22"><span class="pl-v">NUMBER</span> <span class="pl-c1">=</span> <span class="pl-s1">random</span>.<span class="pl-en">randint</span>(<span class="pl-v">MINIMUM</span>, <span class="pl-v">MAXIMUM</span>)</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="23" id="file-guessinggametwo-py-L23"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC23"><span class="pl-v">TRY</span> <span class="pl-c1">=</span> <span class="pl-c1">0</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="24" id="file-guessinggametwo-py-L24"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC24"><span class="pl-v">RUNNING</span> <span class="pl-c1">=</span> <span class="pl-c1">True</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="25" id="file-guessinggametwo-py-L25"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC25"><span class="pl-v">ANSWER</span> <span class="pl-c1">=</span> <span class="pl-c1">None</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="26" id="file-guessinggametwo-py-L26"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC26"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="27" id="file-guessinggametwo-py-L27"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC27"><span class="pl-k">while</span> <span class="pl-v">RUNNING</span>:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="28" id="file-guessinggametwo-py-L28"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC28"><span class="pl-k">print</span> <span class="pl-s">"Is it %s?"</span> <span class="pl-c1">%</span> <span class="pl-en">str</span>(<span class="pl-v">NUMBER</span>)</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="29" id="file-guessinggametwo-py-L29"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC29"><span class="pl-v">ANSWER</span> <span class="pl-c1">=</span> <span class="pl-en">raw_input</span>()</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="30" id="file-guessinggametwo-py-L30"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC30"><span class="pl-k">if</span> <span class="pl-s">"no"</span> <span class="pl-c1">in</span> <span class="pl-v">ANSWER</span>.<span class="pl-en">lower</span>() <span class="pl-c1">and</span> <span class="pl-s">"lower"</span> <span class="pl-c1">in</span> <span class="pl-v">ANSWER</span>.<span class="pl-en">lower</span>():</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="31" id="file-guessinggametwo-py-L31"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC31"><span class="pl-v">NUMBER</span> <span class="pl-c1">-=</span> <span class="pl-s1">random</span>.<span class="pl-en">randint</span>(<span class="pl-c1">1</span>, <span class="pl-c1">4</span>)</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="32" id="file-guessinggametwo-py-L32"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC32"><span class="pl-k">elif</span> <span class="pl-s">"no"</span> <span class="pl-c1">in</span> <span class="pl-v">ANSWER</span>.<span class="pl-en">lower</span>() <span class="pl-c1">and</span> <span class="pl-s">"higher"</span> <span class="pl-c1">in</span> <span class="pl-v">ANSWER</span>.<span class="pl-en">lower</span>():</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="33" id="file-guessinggametwo-py-L33"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC33"><span class="pl-v">NUMBER</span> <span class="pl-c1">+=</span> <span class="pl-s1">random</span>.<span class="pl-en">randint</span>(<span class="pl-c1">1</span>, <span class="pl-c1">4</span>)</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="34" id="file-guessinggametwo-py-L34"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC34"><span class="pl-k">elif</span> <span class="pl-v">ANSWER</span>.<span class="pl-en">lower</span>() <span class="pl-c1">==</span> <span class="pl-s">"no"</span>:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="35" id="file-guessinggametwo-py-L35"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC35"><span class="pl-k">print</span> <span class="pl-s">"Higher or lower?"</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="36" id="file-guessinggametwo-py-L36"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC36"><span class="pl-v">ANSWER</span> <span class="pl-c1">=</span> <span class="pl-en">raw_input</span>()</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="37" id="file-guessinggametwo-py-L37"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC37"><span class="pl-k">if</span> <span class="pl-v">ANSWER</span>.<span class="pl-en">lower</span>() <span class="pl-c1">==</span> <span class="pl-s">"higher"</span>:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="38" id="file-guessinggametwo-py-L38"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC38"><span class="pl-v">NUMBER</span> <span class="pl-c1">+=</span> <span class="pl-s1">random</span>.<span class="pl-en">randint</span>(<span class="pl-c1">1</span>, <span class="pl-c1">4</span>)</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="39" id="file-guessinggametwo-py-L39"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC39"><span class="pl-k">elif</span> <span class="pl-v">ANSWER</span>.<span class="pl-en">lower</span>() <span class="pl-c1">==</span> <span class="pl-s">"lower"</span>:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="40" id="file-guessinggametwo-py-L40"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC40"><span class="pl-v">NUMBER</span> <span class="pl-c1">-=</span> <span class="pl-s1">random</span>.<span class="pl-en">randint</span>(<span class="pl-c1">1</span>, <span class="pl-c1">4</span>)</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="41" id="file-guessinggametwo-py-L41"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC41"><span class="pl-k">elif</span> <span class="pl-v">ANSWER</span>.<span class="pl-en">lower</span>() <span class="pl-c1">==</span> <span class="pl-s">"yes"</span>:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="42" id="file-guessinggametwo-py-L42"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC42"><span class="pl-k">if</span> <span class="pl-v">TRY</span> <span class="pl-c1">&lt;</span> <span class="pl-c1">2</span>:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="43" id="file-guessinggametwo-py-L43"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC43"><span class="pl-k">print</span> <span class="pl-s">"Yes! It only took me %s try!"</span> <span class="pl-c1">%</span> <span class="pl-en">str</span>(<span class="pl-v">TRY</span>)</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="44" id="file-guessinggametwo-py-L44"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC44"><span class="pl-k">elif</span> <span class="pl-v">TRY</span> <span class="pl-c1">&lt;</span> <span class="pl-c1">2</span> <span class="pl-c1">and</span> <span class="pl-v">TRY</span> <span class="pl-c1">&lt;</span> <span class="pl-c1">10</span>:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="45" id="file-guessinggametwo-py-L45"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC45"><span class="pl-k">print</span> <span class="pl-s">"Pretty well for a robot, %s tries."</span> <span class="pl-c1">%</span> <span class="pl-en">str</span>(<span class="pl-v">TRY</span>)</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="46" id="file-guessinggametwo-py-L46"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC46"><span class="pl-k">else</span>:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="47" id="file-guessinggametwo-py-L47"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC47"><span class="pl-k">print</span> <span class="pl-s">"That's so bad, %s tries."</span> <span class="pl-c1">%</span> <span class="pl-en">str</span>(<span class="pl-v">TRY</span>)</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="48" id="file-guessinggametwo-py-L48"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC48"><span class="pl-v">RUNNING</span> <span class="pl-c1">=</span> <span class="pl-c1">False</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="49" id="file-guessinggametwo-py-L49"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC49"><span class="pl-v">TRY</span> <span class="pl-c1">+=</span> <span class="pl-c1">1</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="50" id="file-guessinggametwo-py-L50"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC50"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="51" id="file-guessinggametwo-py-L51"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-guessinggametwo-py-LC51"><span class="pl-k">print</span> <span class="pl-s">"Thanks for the game!"</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="gist-meta"><a href="https://gist.github.com/anonymous/4da27a975ad14d590a84/raw/872fb1e1c3ddc22ca9dc9ac9f00294333d59b03f/GuessingGameTwo.py">view raw</a><a href="https://gist.github.com/anonymous/4da27a975ad14d590a84#file-guessinggametwo-py">GuessingGameTwo.py</a><span> </span>hosted with ❤ by<span> </span><a href="https://github.com/">GitHub</a></div>
+</div>
+</div>
+<p>Here is one user solution, implementing binary search:</p>
+<div class="gist" id="gist27751450">
+<div class="gist-file">
+<div class="gist-data">
+<div class="js-gist-file-update-container js-task-list-container file-box">
+<div class="file my-2" id="file-25_guessing_game_two-py">
+<div class="Box-body p-0 blob-wrapper data type-python" itemprop="text">
+<table class="highlight tab-size js-file-line-container" data-paste-markdown-skip="" data-tab-size="8">
+<tbody>
+<tr>
+<td class="blob-num js-line-number" data-line-number="1" id="file-25_guessing_game_two-py-L1"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-25_guessing_game_two-py-LC1"><span class="pl-k">def</span> <span class="pl-en">guess</span>():</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="2" id="file-25_guessing_game_two-py-L2"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-25_guessing_game_two-py-LC2"><span class="pl-s1">i</span> <span class="pl-c1">=</span> <span class="pl-c1">0</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="3" id="file-25_guessing_game_two-py-L3"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-25_guessing_game_two-py-LC3"><span class="pl-c"># i is the lowest number in range of possible guess</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="4" id="file-25_guessing_game_two-py-L4"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-25_guessing_game_two-py-LC4"><span class="pl-s1">j</span> <span class="pl-c1">=</span> <span class="pl-c1">100</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="5" id="file-25_guessing_game_two-py-L5"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-25_guessing_game_two-py-LC5"><span class="pl-c"># j is the highest number in range of possible guesses</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="6" id="file-25_guessing_game_two-py-L6"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-25_guessing_game_two-py-LC6"><span class="pl-s1">m</span> <span class="pl-c1">=</span> <span class="pl-c1">50</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="7" id="file-25_guessing_game_two-py-L7"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-25_guessing_game_two-py-LC7"><span class="pl-c"># m is the middle number in range of possible guesses</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="8" id="file-25_guessing_game_two-py-L8"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-25_guessing_game_two-py-LC8"><span class="pl-s1">counter</span> <span class="pl-c1">=</span> <span class="pl-c1">1</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="9" id="file-25_guessing_game_two-py-L9"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-25_guessing_game_two-py-LC9"><span class="pl-c"># counter is the number of guesses take.</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="10" id="file-25_guessing_game_two-py-L10"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-25_guessing_game_two-py-LC10"><span class="pl-k">print</span> <span class="pl-s">"Please guess a number"</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="11" id="file-25_guessing_game_two-py-L11"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-25_guessing_game_two-py-LC11"><span class="pl-s1">condition</span> <span class="pl-c1">=</span> <span class="pl-en">input</span>(<span class="pl-s">"Is your guess "</span> <span class="pl-c1">+</span> <span class="pl-en">str</span>(<span class="pl-s1">m</span>) <span class="pl-c1">+</span> <span class="pl-s">"? (0 means it's too low, 1 means it's your guess and 2 means it's too high) "</span>)</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="12" id="file-25_guessing_game_two-py-L12"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-25_guessing_game_two-py-LC12"><span class="pl-k">while</span> <span class="pl-s1">condition</span> <span class="pl-c1">!=</span> <span class="pl-c1">1</span>:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="13" id="file-25_guessing_game_two-py-L13"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-25_guessing_game_two-py-LC13"><span class="pl-s1">counter</span> <span class="pl-c1">+=</span> <span class="pl-c1">1</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="14" id="file-25_guessing_game_two-py-L14"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-25_guessing_game_two-py-LC14"><span class="pl-k">if</span> <span class="pl-s1">condition</span> <span class="pl-c1">==</span> <span class="pl-c1">0</span>:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="15" id="file-25_guessing_game_two-py-L15"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-25_guessing_game_two-py-LC15"><span class="pl-s1">i</span> <span class="pl-c1">=</span> <span class="pl-s1">m</span> <span class="pl-c1">+</span> <span class="pl-c1">1</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="16" id="file-25_guessing_game_two-py-L16"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-25_guessing_game_two-py-LC16"><span class="pl-k">elif</span> <span class="pl-s1">condition</span> <span class="pl-c1">==</span> <span class="pl-c1">2</span>:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="17" id="file-25_guessing_game_two-py-L17"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-25_guessing_game_two-py-LC17"><span class="pl-s1">j</span> <span class="pl-c1">=</span> <span class="pl-s1">m</span> <span class="pl-c1">-</span> <span class="pl-c1">1</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="18" id="file-25_guessing_game_two-py-L18"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-25_guessing_game_two-py-LC18"><span class="pl-s1">m</span> <span class="pl-c1">=</span> (<span class="pl-s1">i</span> <span class="pl-c1">+</span> <span class="pl-s1">j</span>) <span class="pl-c1">/</span> <span class="pl-c1">2</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="19" id="file-25_guessing_game_two-py-L19"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-25_guessing_game_two-py-LC19"><span class="pl-s1">condition</span> <span class="pl-c1">=</span> <span class="pl-en">input</span>(<span class="pl-s">"Is your guess "</span> <span class="pl-c1">+</span> <span class="pl-en">str</span>(<span class="pl-s1">m</span>) <span class="pl-c1">+</span> <span class="pl-s">"? (0 means it's too low, 1 means it's your guess and 2 means it's too high) "</span>)</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="20" id="file-25_guessing_game_two-py-L20"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-25_guessing_game_two-py-LC20"><span class="pl-k">print</span> <span class="pl-s">"It took"</span> , <span class="pl-s1">counter</span> , <span class="pl-s">"times to guess your number"</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="21" id="file-25_guessing_game_two-py-L21"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-25_guessing_game_two-py-LC21"><span class="pl-en">guess</span>()</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="gist-meta"><a href="https://gist.github.com/anonymous/97e6b3f876d3b257f5cc/raw/325b9d0753232afcb32922d57e264954f2c3e36d/25_Guessing_Game_Two.py">view raw</a><a href="https://gist.github.com/anonymous/97e6b3f876d3b257f5cc#file-25_guessing_game_two-py">25_Guessing_Game_Two.py</a><span> </span>hosted with ❤ by<span> </span><a href="https://github.com/">GitHub</a></div>
+<div class="gist-meta"></div>
+</div>
+</div>
+<p>Explanation</p>
+<p>Theory</p>
+
+<p>The problem given in this exercise is called a search problem - the objective is to find something. It is solved by an algorithm called a search algorithm - an algorithm designed to find something. Not rocket science, I know, just terminology.</p>
+<p>The most optimal solution to this problem requires an algorithm called<span> </span><a href="https://en.wikipedia.org/wiki/Binary_search_algorithm">binary search</a>, the most efficient search algorithm on sorted lists (for those who know about computational complexity, binary search is an<span> </span><code class="highlighter-rouge">O(log n)</code><span> </span>algorithm).</p>
+<p>In a nutshell, binary search picks an element from a sorted list, then decides (based on some feedback of the target), whether to look earlier or later in the list. In the optimal form, the binary search algorithm will always look at the “center” of the list in question. The catch is that binary search relies on having the original list in question be<span> </span><em>sorted</em>, or ordered either smallest to largest or largest to smallest.</p>
+<p>Example + Code</p>
+
+<p>Let’s go through an example. Say you have this list:<span> </span><code class="highlighter-rouge">my_list = [-10, 1, 2, 6, 7, 12, 21]</code>, and we are trying to find the element<span> </span><code class="highlighter-rouge">12</code><span> </span>in the smallest number of steps. This means we want to search through the list until we find<span> </span><code class="highlighter-rouge">8</code>, and keep track of the index we look at. The binary search algorithm will start by looking at the item in the middle (in this case<span> </span><code class="highlighter-rouge">6</code>). We then task, is<span> </span><code class="highlighter-rouge">6</code><span> </span>less than or greater than our target (<code class="highlighter-rouge">12</code>)? It is less, so we need to look at the RIGHT HALF of the list. This means our new list we are looking at is<span> </span><code class="highlighter-rouge">[7, 12, 21]</code>. We again look at the “center” element (<code class="highlighter-rouge">12</code>), and compare. It is<span> </span><code class="highlighter-rouge">12</code>, our target, so we are done!</p>
+<p>In code, we can accomplish this with a<span> </span><code class="highlighter-rouge">while</code><span> </span>loop. We want to keep going until either we haven’t found the element, or our guess is equal to the element. The end conditions are<span> </span><code class="highlighter-rouge">len(my_list) == 0</code><span> </span>or<span> </span><code class="highlighter-rouge">guess == target</code>, so the<span> </span><code class="highlighter-rouge">while</code><span> </span>loop continues while those two conditions are NOT met.</p>
+<p>The function will look something like this (in Python 3), assuming the list is sorted from smallest to largest:</p>
+<figure class="highlight">
+<pre><code class="language-python" data-lang="python"><span class="n">my_list</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">21</span><span class="p">]</span>
+<span class="n">target</span> <span class="o">=</span> <span class="mi">12</span>
+<span class="n">guess</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">while</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">guess</span> <span class="o">==</span> <span class="n">target</span><span class="p">):</span>
+  <span class="n">center_index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="n">guess</span> <span class="o">=</span> <span class="n">my_list</span><span class="p">[</span><span class="n">center_index</span><span class="p">]</span>
+  <span class="k">if</span> <span class="n">guess</span> <span class="o">&gt;</span> <span class="n">target</span><span class="p">:</span>
+    <span class="n">my_list</span> <span class="o">=</span> <span class="n">my_list</span><span class="p">[:</span><span class="n">center_index</span><span class="p">]</span>
+  <span class="k">elif</span> <span class="n">guess</span> <span class="o">&lt;</span> <span class="n">target</span><span class="p">:</span>
+    <span class="n">my_list</span> <span class="o">=</span> <span class="n">my_list</span><span class="p">[</span><span class="n">center_index</span><span class="p">:]</span>
+
+<span class="k">if</span> <span class="n">guess</span> <span class="o">==</span> <span class="n">target</span><span class="p">:</span>
+  <span class="k">print</span><span class="p">(</span><span class="s">"Found target! Guess = "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">guess</span><span class="p">))</span>
+<span class="k">else</span><span class="p">:</span>
+  <span class="k">print</span><span class="p">(</span><span class="s">"Target not found. Last guess = "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">guess</span><span class="p">))</span></code></pre>
+</figure>
+<p>A few tricky things to note from the code:</p>
+<ul>
+<li>We want to always be looking at the “center” element of the list, but if the list (or sublist) has an even number of elements, it needs to be converted into an integer, so it can be used as an index into a list. In my case, I just converted the result of the length of the list divided by 2 into an int, but there are other ways.</li>
+<li>The variable<span> </span><code class="highlighter-rouge">guess</code><span> </span>has to be given a value to start, but it doesn’t matter what that value is as long as it is not equal to<span> </span><code class="highlighter-rouge">target</code>. (<em>Why? because if<span> </span><code class="highlighter-rouge">guess</code><span> </span>were to start out equal to<span> </span><code class="highlighter-rouge">target</code>, the loop will never happen.</em>)</li>
+<li>I have two conditions in my<span> </span><code class="highlighter-rouge">if</code><span> </span>statement: if the<span> </span><code class="highlighter-rouge">guess</code><span> </span>is less than the<span> </span><code class="highlighter-rouge">target</code>, or if<span> </span><code class="highlighter-rouge">guess</code><span> </span>is greater than the<span> </span><code class="highlighter-rouge">target</code>. In the case of the<span> </span><code class="highlighter-rouge">guess</code><span> </span>being less than the<span> </span><code class="highlighter-rouge">target</code>, I want to look at the half of the list on the RIGHT side of the<span> </span><code class="highlighter-rouge">guess</code>. The way I wrote it here, I am including the<span> </span><code class="highlighter-rouge">guess</code><span> </span>element in the sublist - this is not hugely important, since we will most likely remove that element later in the process anyway.</li>
+<li>You can put a<span> </span><code class="highlighter-rouge">print(my_list)</code><span> </span>and/or a<span> </span><code class="highlighter-rouge">print(guess)</code><span> </span>inside the<span> </span><code class="highlighter-rouge">while</code><span> </span>loop after the<span> </span><code class="highlighter-rouge">if</code><span> </span>statement to see the progress of the code.</li>
+<li>Bonus code</li>
+</ul>
+
+<p>Lets way we wanted to add “monitoring” to our code. How many times did the<span> </span><code class="highlighter-rouge">while</code><span> </span>loop execute? Let’s just add a counter!</p>
+<figure class="highlight">
+<pre><code class="language-python" data-lang="python"><span class="n">my_list</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">21</span><span class="p">]</span>
+<span class="n">target</span> <span class="o">=</span> <span class="mi">12</span>
+<span class="n">guess</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">numbet_of_loops</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">while</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">guess</span> <span class="o">==</span> <span class="n">target</span><span class="p">):</span>
+  <span class="n">center_index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="n">guess</span> <span class="o">=</span> <span class="n">my_list</span><span class="p">[</span><span class="n">center_index</span><span class="p">]</span>
+  <span class="k">if</span> <span class="n">guess</span> <span class="o">&gt;</span> <span class="n">target</span><span class="p">:</span>
+    <span class="n">my_list</span> <span class="o">=</span> <span class="n">my_list</span><span class="p">[:</span><span class="n">center_index</span><span class="p">]</span>
+  <span class="k">elif</span> <span class="n">guess</span> <span class="o">&lt;</span> <span class="n">target</span><span class="p">:</span>
+    <span class="n">my_list</span> <span class="o">=</span> <span class="n">my_list</span><span class="p">[</span><span class="n">center_index</span><span class="p">:]</span>
+  <span class="n">number_of_loops</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="k">if</span> <span class="n">guess</span> <span class="o">==</span> <span class="n">target</span><span class="p">:</span>
+  <span class="k">print</span><span class="p">(</span><span class="s">"Found target! Guess = "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">guess</span><span class="p">))</span>
+<span class="k">else</span><span class="p">:</span>
+  <span class="k">print</span><span class="p">(</span><span class="s">"Target not found. Last guess = "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">guess</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"while loop executed "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">number_of_loops</span><span class="p">)</span> <span class="o">+</span> <span class="s">" times"</span><span class="p">)</span></code></pre>
+</figure>
+<p>Try changing the value of<span> </span><code class="highlighter-rouge">target</code><span> </span>and see what happens!</p>
+<p>If you are feeling excited about this code and want to play more, try this bonus challenge: what happens if the list is sorted from largest to smallest? What has to change in the code?</p>
+<p>Answering the original question</p>
+
+<p>So, to answer the original question, there are two things that need to be modified from our code snippet above:</p>
+<ol>
+<li>The target needs to be set. The problem specifically specifies asking the user for feedback about whether the number is too big or too small, so that needs to be incorporated into the<span> </span><code class="highlighter-rouge">while</code><span> </span>loop.</li>
+<li>The list is now not a random collection of numbers - it is all the numbers in<span> </span><code class="highlighter-rouge">range(0, 100)</code>, so you can either construct the list that way, or compute the guesses on the fly without the list (like in the sample solution above).</li>
+</ol>
+<p>There are many ways to solve this problem! Try a few of them and see what you like.</p>
+<p>Further reading</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Binary_search_algorithm">Wikipedia article on binary search</a></li>
+<li><a href="https://www.khanacademy.org/computing/computer-science/algorithms/binary-search/a/implementing-binary-search-of-an-array">Khan academy lecture on binary search</a></li>
+</ul>
+<p>Happy hacking!</p>
+<h2>26</h2>
+<p>Check Tic Tac Toe Solutions</p>
+<p>Exercise 26</p>
+<p><em>This exercise is Part 2 of 4 of the Tic Tac Toe exercise series. The other exercises are:<span> </span><a href="https://www.practicepython.org/exercise/2014/12/27/24-draw-a-game-board.html">Part 1</a>,<span> </span><a href="https://www.practicepython.org/exercise/2015/11/26/27-tic-tac-toe-draw.html">Part 3</a>, and<span> </span><a href="https://www.practicepython.org/exercise/2016/08/03/29-tic-tac-toe-game.html">Part 4</a>.</em></p>
+<p>As you may have guessed, we are trying to build up to a full tic-tac-toe board. However, this is significantly more than half an hour of coding, so we’re doing it in pieces.</p>
+<p>Today, we will simply focus on checking whether someone has WON a game of Tic Tac Toe, not worrying about how the moves were made.</p>
+<p>If a game of Tic Tac Toe is represented as a list of lists, like so:</p>
+<figure class="highlight">
+<pre><code class="language-python" data-lang="python"><span class="n">game</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span></code></pre>
+</figure>
+<p>where a<span> </span><code class="highlighter-rouge">0</code><span> </span>means an empty square, a<span> </span><code class="highlighter-rouge">1</code><span> </span>means that player 1 put their token in that space, and a<span> </span><code class="highlighter-rouge">2</code><span> </span>means that player 2 put their token in that space.</p>
+<p>Your task this week: given a 3 by 3 list of lists that represents a Tic Tac Toe game board, tell me whether anyone has won, and tell me which player won, if any. A Tic Tac Toe win is 3 in a row - either in a row, a column, or a diagonal. Don’t worry about the case where TWO people have won - assume that in every board there will only be one winner.</p>
+<p>Here are some more examples to work with:</p>
+<figure class="highlight">
+<pre><code class="language-python" data-lang="python"><span class="n">winner_is_2</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+
+<span class="n">winner_is_1</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+
+<span class="n">winner_is_also_1</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+
+<span class="n">no_winner</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span>
+
+<span class="n">also_no_winner</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]<br/><br/></span></code></pre>
+</figure>
+<p>Sample solutions</p>
+<p>There were many strategies for approaching this problem. The important part is to be careful about checking rows, columns, and diagonals for winners. Things like making sure that a row of<span> </span><code class="highlighter-rouge">0</code>,<span> </span><code class="highlighter-rouge">0</code>,<span> </span><code class="highlighter-rouge">0</code><span> </span>doesn’t win with player number 0 is important, and making sure to count the columns and rows at the edges.</p>
+<p>A few submitted solutions are below - feel free to comment if you think you have a better one, and I’ll put it up here!</p>
+<p>Not using too many functions, but using the<span> </span><code class="highlighter-rouge">numpy</code><span> </span>library to transpose the game board, turning column-checking into row-checking.</p>
+<div class="gist" id="gist28147071">
+<div class="gist-file">
+<div class="gist-data">
+<div class="js-gist-file-update-container js-task-list-container file-box">
+<div class="file my-2" id="file-tic_tac_toe_check-py">
+<div class="Box-body p-0 blob-wrapper data type-python" itemprop="text">
+<table class="highlight tab-size js-file-line-container" data-paste-markdown-skip="" data-tab-size="8">
+<tbody>
+<tr>
+<td class="blob-num js-line-number" data-line-number="1" id="file-tic_tac_toe_check-py-L1"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC1"><span class="pl-k">import</span> <span class="pl-s1">numpy</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="2" id="file-tic_tac_toe_check-py-L2"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC2"><span class="pl-s1">game</span> <span class="pl-c1">=</span> [</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="3" id="file-tic_tac_toe_check-py-L3"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC3">[<span class="pl-c1">2</span>,<span class="pl-c1">2</span>,<span class="pl-c1">1</span>],</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="4" id="file-tic_tac_toe_check-py-L4"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC4">[<span class="pl-c1">1</span>,<span class="pl-c1">1</span>,<span class="pl-c1">2</span>],</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="5" id="file-tic_tac_toe_check-py-L5"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC5">[<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">1</span>]]</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="6" id="file-tic_tac_toe_check-py-L6"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC6"><span class="pl-s1">set_r</span> <span class="pl-c1">=</span> ()</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="7" id="file-tic_tac_toe_check-py-L7"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC7"><span class="pl-s1">set_c</span> <span class="pl-c1">=</span> ()</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="8" id="file-tic_tac_toe_check-py-L8"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC8"><span class="pl-k">def</span> <span class="pl-en">line_match</span>(<span class="pl-s1">game</span>):</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="9" id="file-tic_tac_toe_check-py-L9"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC9"><span class="pl-k">for</span> <span class="pl-s1">i</span> <span class="pl-c1">in</span> <span class="pl-en">range</span>(<span class="pl-c1">3</span>):</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="10" id="file-tic_tac_toe_check-py-L10"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC10"><span class="pl-s1">set_r</span> <span class="pl-c1">=</span> <span class="pl-en">set</span>(<span class="pl-s1">game</span>[<span class="pl-s1">i</span>])</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="11" id="file-tic_tac_toe_check-py-L11"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC11"><span class="pl-k">if</span> <span class="pl-en">len</span>(<span class="pl-s1">set_r</span>) <span class="pl-c1">==</span> <span class="pl-c1">1</span> <span class="pl-c1">and</span> <span class="pl-s1">game</span>[<span class="pl-s1">i</span>][<span class="pl-c1">0</span>] <span class="pl-c1">!=</span> <span class="pl-c1">0</span>:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="12" id="file-tic_tac_toe_check-py-L12"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC12"><span class="pl-k">return</span> <span class="pl-s1">game</span>[<span class="pl-s1">i</span>][<span class="pl-c1">0</span>]</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="13" id="file-tic_tac_toe_check-py-L13"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC13"><span class="pl-k">return</span> <span class="pl-c1">0</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="14" id="file-tic_tac_toe_check-py-L14"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC14"><span class="pl-c">#transposed column function for future use</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="15" id="file-tic_tac_toe_check-py-L15"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC15"><span class="pl-c">#def column(game):</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="16" id="file-tic_tac_toe_check-py-L16"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC16"><span class="pl-c"># trans = numpy.transpose(game)</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="17" id="file-tic_tac_toe_check-py-L17"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC17"><span class="pl-c"># for i in range(3):</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="18" id="file-tic_tac_toe_check-py-L18"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC18"><span class="pl-c"># set_r = set(trans[i])</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="19" id="file-tic_tac_toe_check-py-L19"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC19"><span class="pl-c"># if len(set_r) == 1 and trans[i][0] != 0:</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="20" id="file-tic_tac_toe_check-py-L20"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC20"><span class="pl-c"># return list(set_r)[0]</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="21" id="file-tic_tac_toe_check-py-L21"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC21"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="22" id="file-tic_tac_toe_check-py-L22"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC22"><span class="pl-k">def</span> <span class="pl-en">diagonal_match</span>(<span class="pl-s1">game</span>):</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="23" id="file-tic_tac_toe_check-py-L23"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC23"><span class="pl-k">if</span> <span class="pl-s1">game</span>[<span class="pl-c1">1</span>][<span class="pl-c1">1</span>] <span class="pl-c1">!=</span> <span class="pl-c1">0</span>:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="24" id="file-tic_tac_toe_check-py-L24"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC24"><span class="pl-k">if</span> <span class="pl-s1">game</span>[<span class="pl-c1">1</span>][<span class="pl-c1">1</span>] <span class="pl-c1">==</span> <span class="pl-s1">game</span>[<span class="pl-c1">0</span>][<span class="pl-c1">0</span>] <span class="pl-c1">==</span> <span class="pl-s1">game</span>[<span class="pl-c1">2</span>][<span class="pl-c1">2</span>]:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="25" id="file-tic_tac_toe_check-py-L25"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC25"><span class="pl-k">return</span> <span class="pl-s1">game</span>[<span class="pl-c1">1</span>][<span class="pl-c1">1</span>]</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="26" id="file-tic_tac_toe_check-py-L26"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC26"><span class="pl-k">elif</span> <span class="pl-s1">game</span>[<span class="pl-c1">1</span>][<span class="pl-c1">1</span>] <span class="pl-c1">==</span> <span class="pl-s1">game</span>[<span class="pl-c1">0</span>][<span class="pl-c1">2</span>] <span class="pl-c1">==</span> <span class="pl-s1">game</span>[<span class="pl-c1">2</span>][<span class="pl-c1">0</span>]:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="27" id="file-tic_tac_toe_check-py-L27"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC27"><span class="pl-k">return</span> <span class="pl-s1">game</span>[<span class="pl-c1">1</span>][<span class="pl-c1">1</span>]</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="28" id="file-tic_tac_toe_check-py-L28"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC28"><span class="pl-k">return</span> <span class="pl-c1">0</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="29" id="file-tic_tac_toe_check-py-L29"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC29"><span class="pl-k">if</span> <span class="pl-en">line_match</span>(<span class="pl-s1">game</span>) <span class="pl-c1">&gt;</span> <span class="pl-c1">0</span>:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="30" id="file-tic_tac_toe_check-py-L30"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC30"><span class="pl-en">print</span> (<span class="pl-en">str</span>(<span class="pl-en">line_match</span>(<span class="pl-s1">game</span>)) <span class="pl-c1">+</span> <span class="pl-en">str</span>(<span class="pl-s">" row wins!"</span>))</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="31" id="file-tic_tac_toe_check-py-L31"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC31"><span class="pl-k">if</span> <span class="pl-en">line_match</span>(<span class="pl-s1">numpy</span>.<span class="pl-en">transpose</span>(<span class="pl-s1">game</span>)) <span class="pl-c1">&gt;</span> <span class="pl-c1">0</span>:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="32" id="file-tic_tac_toe_check-py-L32"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC32"><span class="pl-en">print</span> (<span class="pl-en">str</span>(<span class="pl-en">line_match</span>(<span class="pl-s1">numpy</span>.<span class="pl-en">transpose</span>(<span class="pl-s1">game</span>))) <span class="pl-c1">+</span> <span class="pl-en">str</span>(<span class="pl-s">" column wins!"</span>))</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="33" id="file-tic_tac_toe_check-py-L33"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC33"><span class="pl-k">if</span> <span class="pl-en">diagonal_match</span>(<span class="pl-s1">game</span>) <span class="pl-c1">&gt;</span> <span class="pl-c1">0</span>:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="34" id="file-tic_tac_toe_check-py-L34"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC34"><span class="pl-en">print</span> (<span class="pl-en">str</span>(<span class="pl-en">diagonal_match</span>(<span class="pl-s1">game</span>)) <span class="pl-c1">+</span> <span class="pl-en">str</span>(<span class="pl-s">" diagonal wins!"</span>))</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="gist-meta"><a href="https://gist.github.com/anonymous/b141c876ebc330bfeb13/raw/e2b700961faf3eff1c16b97a0e9e3a90459cb6bb/tic_tac_toe_check.py">view raw</a><a href="https://gist.github.com/anonymous/b141c876ebc330bfeb13#file-tic_tac_toe_check-py">tic_tac_toe_check.py</a><span> </span>hosted with ❤ by<span> </span><a href="https://github.com/">GitHub</a></div>
+</div>
+</div>
+<p></p>
+<p>Using<span> </span><code class="highlighter-rouge">set()</code><span> </span>to simplify the counting.</p>
+<div class="gist" id="gist28214903">
+<div class="gist-file">
+<div class="gist-data">
+<div class="js-gist-file-update-container js-task-list-container file-box">
+<div class="file my-2" id="file-tictactoecheck-py">
+<div class="Box-body p-0 blob-wrapper data type-python" itemprop="text">
+<table class="highlight tab-size js-file-line-container" data-paste-markdown-skip="" data-tab-size="8">
+<tbody>
+<tr>
+<td class="blob-num js-line-number" data-line-number="1" id="file-tictactoecheck-py-L1"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC1"><span class="pl-k">def</span> <span class="pl-en">checkGrid</span>(<span class="pl-s1">grid</span>):</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="2" id="file-tictactoecheck-py-L2"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC2"><span class="pl-c"># rows</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="3" id="file-tictactoecheck-py-L3"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC3"><span class="pl-k">for</span> <span class="pl-s1">x</span> <span class="pl-c1">in</span> <span class="pl-en">range</span>(<span class="pl-c1">0</span>,<span class="pl-c1">3</span>):</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="4" id="file-tictactoecheck-py-L4"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC4"><span class="pl-s1">row</span> <span class="pl-c1">=</span> <span class="pl-en">set</span>([<span class="pl-s1">grid</span>[<span class="pl-s1">x</span>][<span class="pl-c1">0</span>],<span class="pl-s1">grid</span>[<span class="pl-s1">x</span>][<span class="pl-c1">1</span>],<span class="pl-s1">grid</span>[<span class="pl-s1">x</span>][<span class="pl-c1">2</span>]])</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="5" id="file-tictactoecheck-py-L5"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC5"><span class="pl-k">if</span> <span class="pl-en">len</span>(<span class="pl-s1">row</span>) <span class="pl-c1">==</span> <span class="pl-c1">1</span> <span class="pl-c1">and</span> <span class="pl-s1">grid</span>[<span class="pl-s1">x</span>][<span class="pl-c1">0</span>] <span class="pl-c1">!=</span> <span class="pl-c1">0</span>:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="6" id="file-tictactoecheck-py-L6"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC6"><span class="pl-k">return</span> <span class="pl-s1">grid</span>[<span class="pl-s1">x</span>][<span class="pl-c1">0</span>]</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="7" id="file-tictactoecheck-py-L7"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC7"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="8" id="file-tictactoecheck-py-L8"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC8"><span class="pl-c"># columns</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="9" id="file-tictactoecheck-py-L9"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC9"><span class="pl-k">for</span> <span class="pl-s1">x</span> <span class="pl-c1">in</span> <span class="pl-en">range</span>(<span class="pl-c1">0</span>,<span class="pl-c1">3</span>):</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="10" id="file-tictactoecheck-py-L10"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC10"><span class="pl-s1">column</span> <span class="pl-c1">=</span> <span class="pl-en">set</span>([<span class="pl-s1">grid</span>[<span class="pl-c1">0</span>][<span class="pl-s1">x</span>],<span class="pl-s1">grid</span>[<span class="pl-c1">1</span>][<span class="pl-s1">x</span>],<span class="pl-s1">grid</span>[<span class="pl-c1">2</span>][<span class="pl-s1">x</span>]])</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="11" id="file-tictactoecheck-py-L11"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC11"><span class="pl-k">if</span> <span class="pl-en">len</span>(<span class="pl-s1">column</span>) <span class="pl-c1">==</span> <span class="pl-c1">1</span> <span class="pl-c1">and</span> <span class="pl-s1">grid</span>[<span class="pl-c1">0</span>][<span class="pl-s1">x</span>] <span class="pl-c1">!=</span> <span class="pl-c1">0</span>:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="12" id="file-tictactoecheck-py-L12"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC12"><span class="pl-k">return</span> <span class="pl-s1">grid</span>[<span class="pl-c1">0</span>][<span class="pl-s1">x</span>]</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="13" id="file-tictactoecheck-py-L13"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC13"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="14" id="file-tictactoecheck-py-L14"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC14"><span class="pl-c"># diagonals</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="15" id="file-tictactoecheck-py-L15"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC15"><span class="pl-s1">diag1</span> <span class="pl-c1">=</span> <span class="pl-en">set</span>([<span class="pl-s1">grid</span>[<span class="pl-c1">0</span>][<span class="pl-c1">0</span>],<span class="pl-s1">grid</span>[<span class="pl-c1">1</span>][<span class="pl-c1">1</span>],<span class="pl-s1">grid</span>[<span class="pl-c1">2</span>][<span class="pl-c1">2</span>]])</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="16" id="file-tictactoecheck-py-L16"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC16"><span class="pl-s1">diag2</span> <span class="pl-c1">=</span> <span class="pl-en">set</span>([<span class="pl-s1">grid</span>[<span class="pl-c1">0</span>][<span class="pl-c1">2</span>],<span class="pl-s1">grid</span>[<span class="pl-c1">1</span>][<span class="pl-c1">1</span>],<span class="pl-s1">grid</span>[<span class="pl-c1">2</span>][<span class="pl-c1">0</span>]])</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="17" id="file-tictactoecheck-py-L17"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC17"><span class="pl-k">if</span> <span class="pl-en">len</span>(<span class="pl-s1">diag1</span>) <span class="pl-c1">==</span> <span class="pl-c1">1</span> <span class="pl-c1">or</span> <span class="pl-en">len</span>(<span class="pl-s1">diag2</span>) <span class="pl-c1">==</span> <span class="pl-c1">1</span> <span class="pl-c1">and</span> <span class="pl-s1">grid</span>[<span class="pl-c1">1</span>][<span class="pl-c1">1</span>] <span class="pl-c1">!=</span> <span class="pl-c1">0</span>:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="18" id="file-tictactoecheck-py-L18"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC18"><span class="pl-k">return</span> <span class="pl-s1">grid</span>[<span class="pl-c1">1</span>][<span class="pl-c1">1</span>]</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="19" id="file-tictactoecheck-py-L19"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC19"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="20" id="file-tictactoecheck-py-L20"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC20"><span class="pl-k">return</span> <span class="pl-c1">0</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="21" id="file-tictactoecheck-py-L21"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC21"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="22" id="file-tictactoecheck-py-L22"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC22"><span class="pl-s1">winner_is_2</span> <span class="pl-c1">=</span> [[<span class="pl-c1">2</span>, <span class="pl-c1">2</span>, <span class="pl-c1">0</span>],</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="23" id="file-tictactoecheck-py-L23"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC23">[<span class="pl-c1">2</span>, <span class="pl-c1">1</span>, <span class="pl-c1">0</span>],</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="24" id="file-tictactoecheck-py-L24"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC24">[<span class="pl-c1">2</span>, <span class="pl-c1">1</span>, <span class="pl-c1">1</span>]]</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="25" id="file-tictactoecheck-py-L25"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC25"><span class="pl-s1">winner_is_1</span> <span class="pl-c1">=</span> [[<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">0</span>],</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="26" id="file-tictactoecheck-py-L26"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC26">[<span class="pl-c1">2</span>, <span class="pl-c1">1</span>, <span class="pl-c1">0</span>],</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="27" id="file-tictactoecheck-py-L27"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC27">[<span class="pl-c1">2</span>, <span class="pl-c1">1</span>, <span class="pl-c1">1</span>]]</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="28" id="file-tictactoecheck-py-L28"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC28"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="29" id="file-tictactoecheck-py-L29"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC29"><span class="pl-s1">winner_is_also_1</span> <span class="pl-c1">=</span> [[<span class="pl-c1">0</span>, <span class="pl-c1">1</span>, <span class="pl-c1">0</span>],</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="30" id="file-tictactoecheck-py-L30"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC30">[<span class="pl-c1">2</span>, <span class="pl-c1">1</span>, <span class="pl-c1">0</span>],</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="31" id="file-tictactoecheck-py-L31"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC31">[<span class="pl-c1">2</span>, <span class="pl-c1">1</span>, <span class="pl-c1">1</span>]]</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="32" id="file-tictactoecheck-py-L32"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC32"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="33" id="file-tictactoecheck-py-L33"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC33"><span class="pl-s1">no_winner</span> <span class="pl-c1">=</span> [[<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">0</span>],</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="34" id="file-tictactoecheck-py-L34"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC34">[<span class="pl-c1">2</span>, <span class="pl-c1">1</span>, <span class="pl-c1">0</span>],</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="35" id="file-tictactoecheck-py-L35"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC35">[<span class="pl-c1">2</span>, <span class="pl-c1">1</span>, <span class="pl-c1">2</span>]]</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="36" id="file-tictactoecheck-py-L36"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC36"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="37" id="file-tictactoecheck-py-L37"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC37"><span class="pl-s1">also_no_winner</span> <span class="pl-c1">=</span> [[<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">0</span>],</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="38" id="file-tictactoecheck-py-L38"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC38">[<span class="pl-c1">2</span>, <span class="pl-c1">1</span>, <span class="pl-c1">0</span>],</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="39" id="file-tictactoecheck-py-L39"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC39">[<span class="pl-c1">2</span>, <span class="pl-c1">1</span>, <span class="pl-c1">0</span>]]</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="40" id="file-tictactoecheck-py-L40"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC40"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="41" id="file-tictactoecheck-py-L41"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC41"><span class="pl-en">print</span>(<span class="pl-en">checkGrid</span>(<span class="pl-s1">also_no_winner</span>))</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="gist-meta"><a href="https://gist.github.com/CurveShot/e98159a400c325dc204f/raw/abb007132a15396e9c158861c420f93037f1c16d/tictactoecheck.py">view raw</a><a href="https://gist.github.com/CurveShot/e98159a400c325dc204f#file-tictactoecheck-py">tictactoecheck.py</a><span> </span>hosted with ❤ by<span> </span><a href="https://github.com/">GitHub</a></div>
+</div>
+</div>
+<p></p>
+<p>Happy hacking!</p>
+<h2>27</h2>
+<div><i>Tic Tac Toe Draw Solutions</i></div>
+<div><i></i></div>
+<p>Exercise 27</p>
+<p><em>This exercise is Part 3 of 4 of the Tic Tac Toe exercise series. The other exercises are:<span> </span><a href="https://www.practicepython.org/exercise/2014/12/27/24-draw-a-game-board.html">Part 1</a>,<span> </span><a href="https://www.practicepython.org/exercise/2015/11/16/26-check-tic-tac-toe.html">Part 2</a>, and<span> </span><a href="https://www.practicepython.org/exercise/2016/08/03/29-tic-tac-toe-game.html">Part 4</a>.</em></p>
+<p>In a<span> </span><a href="https://www.practicepython.org/exercise/2015/11/16/26-check-tic-tac-toe.html">previous exercise</a><span> </span>we explored the idea of using a list of lists as a “data structure” to store information about a tic tac toe game. In a tic tac toe game, the “game server” needs to know where the<span> </span><code class="highlighter-rouge">X</code>s and<span> </span><code class="highlighter-rouge">O</code>s are in the board, to know whether player 1 or player 2 (or whoever is<span> </span><code class="highlighter-rouge">X</code><span> </span>and<span> </span><code class="highlighter-rouge">O</code><span> </span>won).</p>
+<p>There has also been an exercise about<span> </span><a href="https://www.practicepython.org/exercise/2014/12/27/24-draw-a-game-board.html">drawing the actual tic tac toe gameboard</a><span> </span>using text characters.</p>
+<p>The next logical step is to deal with handling user input. When a player (say player 1, who is<span> </span><code class="highlighter-rouge">X</code>) wants to place an<span> </span><code class="highlighter-rouge">X</code><span> </span>on the screen, they can’t just click on a terminal. So we are going to approximate this clicking simply by asking the user for a coordinate of where they want to place their piece.</p>
+<p>As a reminder, our tic tac toe game is really a list of lists. The game starts out with an empty game board like this:</p>
+<figure class="highlight">
+<pre><code class="language-python" data-lang="python"><span class="n">game</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span></code></pre>
+</figure>
+<p>The computer asks Player 1 (X) what their move is (in the format<span> </span><code class="highlighter-rouge">row,col</code>), and say they type<span> </span><code class="highlighter-rouge">1,3</code>. Then the game would print out</p>
+<figure class="highlight">
+<pre><code class="language-python" data-lang="python"><span class="n">game</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">X</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span></code></pre>
+</figure>
+<p>And ask Player 2 for their move, printing an<span> </span><code class="highlighter-rouge">O</code><span> </span>in that place.</p>
+<p>Things to note:</p>
+<ul>
+<li>For this exercise, assume that player 1 (the first player to move) will always be<span> </span><code class="highlighter-rouge">X</code><span> </span>and player 2 (the second player) will always be<span> </span><code class="highlighter-rouge">O</code>.</li>
+<li>Notice how in the example I gave coordinates for where I want to move starting from (1, 1) instead of (0, 0). To people who don’t program, starting to count at 0 is a strange concept, so it is better for the user experience if the row counts and column counts start at 1. This is not required, but whichever way you choose to implement this, it should be explained to the player.</li>
+<li>Ask the user to enter coordinates in the form “row,col” - a number, then a comma, then a number. Then you can use your Python skills to figure out which row and column they want their piece to be in.</li>
+<li>Don’t worry about checking whether someone won the game, but if a player tries to put a piece in a game position where there already is another piece, do not allow the piece to go there.</li>
+</ul>
+<p>Bonus:</p>
+<ul>
+<li>For the “standard” exercise, don’t worry about “ending” the game - no need to keep track of how many squares are full. In a bonus version, keep track of how many squares are full and automatically stop asking for moves when there are no more valid moves.</li>
+</ul>
+<p>Sample solutions</p>
+<p>Here is one solution that does not fully complete the exercise, but gives a bit of food for thought. The<span> </span><code class="highlighter-rouge">drawboard</code><span> </span>function is a general function that can be used to draw the game board with any given inputs.</p>
+<div class="gist" id="gist31170658">
+<div class="gist-file">
+<div class="gist-data">
+<div class="js-gist-file-update-container js-task-list-container file-box">
+<div class="file my-2" id="file-tictactoe-py">
+<div class="Box-body p-0 blob-wrapper data type-python" itemprop="text">
+<table class="highlight tab-size js-file-line-container" data-paste-markdown-skip="" data-tab-size="8">
+<tbody>
+<tr>
+<td class="blob-num js-line-number" data-line-number="1" id="file-tictactoe-py-L1"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoe-py-LC1"><span class="pl-k">def</span> <span class="pl-en">drawboard</span>(<span class="pl-s1">board</span>):</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="2" id="file-tictactoe-py-L2"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoe-py-LC2"><span class="pl-en">print</span> (<span class="pl-s">' | | '</span>)</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="3" id="file-tictactoe-py-L3"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoe-py-LC3"><span class="pl-en">print</span> (<span class="pl-s">''</span> <span class="pl-c1">+</span><span class="pl-s1">board</span>[<span class="pl-c1">6</span>]<span class="pl-c1">+</span> <span class="pl-s">' | '</span> <span class="pl-c1">+</span><span class="pl-s1">board</span>[<span class="pl-c1">7</span>]<span class="pl-c1">+</span> <span class="pl-s">' | '</span> <span class="pl-c1">+</span><span class="pl-s1">board</span>[<span class="pl-c1">8</span>] )</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="4" id="file-tictactoe-py-L4"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoe-py-LC4"><span class="pl-en">print</span> (<span class="pl-s">' | | '</span>)</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="5" id="file-tictactoe-py-L5"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoe-py-LC5"><span class="pl-en">print</span> (<span class="pl-s">'---------------'</span>)</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="6" id="file-tictactoe-py-L6"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoe-py-LC6"><span class="pl-en">print</span> (<span class="pl-s">' | | '</span>)</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="7" id="file-tictactoe-py-L7"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoe-py-LC7"><span class="pl-en">print</span> (<span class="pl-s">''</span> <span class="pl-c1">+</span><span class="pl-s1">board</span>[<span class="pl-c1">3</span>]<span class="pl-c1">+</span> <span class="pl-s">' | '</span> <span class="pl-c1">+</span><span class="pl-s1">board</span>[<span class="pl-c1">4</span>]<span class="pl-c1">+</span> <span class="pl-s">' | '</span> <span class="pl-c1">+</span><span class="pl-s1">board</span>[<span class="pl-c1">5</span>] )</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="8" id="file-tictactoe-py-L8"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoe-py-LC8"><span class="pl-en">print</span> (<span class="pl-s">' | | '</span>)</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="9" id="file-tictactoe-py-L9"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoe-py-LC9"><span class="pl-en">print</span>(<span class="pl-s">'-----------------'</span>)</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="10" id="file-tictactoe-py-L10"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoe-py-LC10"><span class="pl-en">print</span> (<span class="pl-s">' | | '</span>)</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="11" id="file-tictactoe-py-L11"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoe-py-LC11"><span class="pl-en">print</span> (<span class="pl-s">''</span> <span class="pl-c1">+</span><span class="pl-s1">board</span>[<span class="pl-c1">0</span>]<span class="pl-c1">+</span> <span class="pl-s">' | '</span> <span class="pl-c1">+</span><span class="pl-s1">board</span>[<span class="pl-c1">1</span>]<span class="pl-c1">+</span> <span class="pl-s">' |'</span> <span class="pl-c1">+</span><span class="pl-s1">board</span>[<span class="pl-c1">2</span>] )</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="12" id="file-tictactoe-py-L12"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoe-py-LC12"><span class="pl-en">print</span> (<span class="pl-s">' | | '</span>)</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="13" id="file-tictactoe-py-L13"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoe-py-LC13"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="14" id="file-tictactoe-py-L14"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoe-py-LC14"><span class="pl-en">drawboard</span>([<span class="pl-s">''</span>, <span class="pl-s">''</span>, <span class="pl-s">''</span>, <span class="pl-s">''</span>, <span class="pl-s">''</span>, <span class="pl-s">''</span>, <span class="pl-s">''</span>, <span class="pl-s">''</span>, <span class="pl-s">''</span>])</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="gist-meta"><a href="https://gist.github.com/Sreekaanth91/70c64445c214ca9df8ed/raw/9b7b278884512631c75ac9e3b0721abdd9422ba4/tictactoe.py">view raw</a><a href="https://gist.github.com/Sreekaanth91/70c64445c214ca9df8ed#file-tictactoe-py">tictactoe.py</a><span> </span>hosted with ❤ by<span> </span><a href="https://github.com/">GitHub</a></div>
+</div>
+</div>
+<p>Another solution uses lots of functions, and also checks whether the game has ended!</p>
+<div class="gist" id="gist31227989">
+<div class="gist-file">
+<div class="gist-data">
+<div class="js-gist-file-update-container js-task-list-container file-box">
+<div class="file my-2" id="file-gistfile1-txt">
+<div class="Box-body p-0 blob-wrapper data type-text" itemprop="text">
+<table class="highlight tab-size js-file-line-container" data-paste-markdown-skip="" data-tab-size="8">
+<tbody>
+<tr>
+<td class="blob-num js-line-number" data-line-number="1" id="file-gistfile1-txt-L1"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC1"># Python Exercises <a class="vglnk" href="http://www.practicepython.org/" rel="nofollow"><span>http</span><span>://</span><span>www</span><span>.</span><span>practicepython</span><span>.</span><span>org</span><span>/</span></a></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="2" id="file-gistfile1-txt-L2"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC2"># Exercise 27 - Tic Tac Toe Draw</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="3" id="file-gistfile1-txt-L3"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC3"># Exercise to draw Tic Tac Toe gameboard the game board getting input from Player 1 and Player 2</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="4" id="file-gistfile1-txt-L4"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC4"># Last updated: 17/02/2016</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="5" id="file-gistfile1-txt-L5"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC5">#</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="6" id="file-gistfile1-txt-L6"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC6"># - gets input from two players</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="7" id="file-gistfile1-txt-L7"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC7"># - checks the input for correctness: row,col</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="8" id="file-gistfile1-txt-L8"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC8"># - exits if board is full or there is a winner</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="9" id="file-gistfile1-txt-L9"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC9"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="10" id="file-gistfile1-txt-L10"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC10"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="11" id="file-gistfile1-txt-L11"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC11"># initialise the game board</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="12" id="file-gistfile1-txt-L12"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC12">gameboard = [(['.']*3) for i in range(3)]</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="13" id="file-gistfile1-txt-L13"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC13"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="14" id="file-gistfile1-txt-L14"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC14"># variables for input and turn count</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="15" id="file-gistfile1-txt-L15"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC15">row_col = [0]</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="16" id="file-gistfile1-txt-L16"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC16">turn = 1</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="17" id="file-gistfile1-txt-L17"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC17"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="18" id="file-gistfile1-txt-L18"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC18"># checks that the input is valid</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="19" id="file-gistfile1-txt-L19"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC19"># - that it is in the format "row,col"</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="20" id="file-gistfile1-txt-L20"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC20"># - that the position is free</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="21" id="file-gistfile1-txt-L21"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC21">def input_valid(values):</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="22" id="file-gistfile1-txt-L22"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC22"># input has only two values</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="23" id="file-gistfile1-txt-L23"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC23">if len(values) != 2:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="24" id="file-gistfile1-txt-L24"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC24">print "Input must be two numbers in format row,col e.g. 1,2 "</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="25" id="file-gistfile1-txt-L25"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC25">return 0</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="26" id="file-gistfile1-txt-L26"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC26"># input is a number between 1 and 3 (inclusive)</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="27" id="file-gistfile1-txt-L27"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC27">try:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="28" id="file-gistfile1-txt-L28"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC28">if (1 &lt;= int(values[0]) &lt;= 3) and (1 &lt;= int(values[1]) &lt;= 3):</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="29" id="file-gistfile1-txt-L29"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC29"># checks if the position on the board is alreay filled</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="30" id="file-gistfile1-txt-L30"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC30">if gameboard[int(values[0])-1][int(values[1])-1] != '.':</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="31" id="file-gistfile1-txt-L31"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC31">print "Position on board already taken."</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="32" id="file-gistfile1-txt-L32"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC32">return 0</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="33" id="file-gistfile1-txt-L33"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC33">return 1</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="34" id="file-gistfile1-txt-L34"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC34">else:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="35" id="file-gistfile1-txt-L35"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC35">print "Input values must be numbers between 1 and 3 (inclusive)"</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="36" id="file-gistfile1-txt-L36"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC36">return 0</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="37" id="file-gistfile1-txt-L37"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC37">except ValueError:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="38" id="file-gistfile1-txt-L38"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC38">print "Input values must be numbers between 1 and 3 (inclusive)"</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="39" id="file-gistfile1-txt-L39"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC39">return 0</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="40" id="file-gistfile1-txt-L40"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC40"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="41" id="file-gistfile1-txt-L41"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC41"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="42" id="file-gistfile1-txt-L42"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC42"># draw the board</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="43" id="file-gistfile1-txt-L43"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC43">def draw_board(values, player):</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="44" id="file-gistfile1-txt-L44"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC44"># changes the value to X or O</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="45" id="file-gistfile1-txt-L45"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC45">gameboard[int(values[0])-1][int(values[1])-1]=player</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="46" id="file-gistfile1-txt-L46"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC46"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="47" id="file-gistfile1-txt-L47"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC47"># print the gameboard</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="48" id="file-gistfile1-txt-L48"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC48">for row in gameboard:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="49" id="file-gistfile1-txt-L49"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC49">print row</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="50" id="file-gistfile1-txt-L50"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC50"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="51" id="file-gistfile1-txt-L51"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC51"># calculate if game is over (no more '.' or has winner)</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="52" id="file-gistfile1-txt-L52"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC52">def game_over():</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="53" id="file-gistfile1-txt-L53"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC53">searcht = '.'</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="54" id="file-gistfile1-txt-L54"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC54"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="55" id="file-gistfile1-txt-L55"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC55"># check win by row</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="56" id="file-gistfile1-txt-L56"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC56">for i in range(3):</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="57" id="file-gistfile1-txt-L57"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC57">if len(set(gameboard[i])) == 1:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="58" id="file-gistfile1-txt-L58"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC58">if gameboard[i][1] == '.':</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="59" id="file-gistfile1-txt-L59"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC59">continue</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="60" id="file-gistfile1-txt-L60"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC60">elif gameboard[i][1] == 'X':</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="61" id="file-gistfile1-txt-L61"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC61">print "Game over - Player 1 wins"</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="62" id="file-gistfile1-txt-L62"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC62">#elif gameboard[i][1] == 'O':</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="63" id="file-gistfile1-txt-L63"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC63">else:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="64" id="file-gistfile1-txt-L64"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC64">print "Game over - Player 2 wins"</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="65" id="file-gistfile1-txt-L65"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC65">return 1</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="66" id="file-gistfile1-txt-L66"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC66"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="67" id="file-gistfile1-txt-L67"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC67"># check win by column</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="68" id="file-gistfile1-txt-L68"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC68">for i in range(3):</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="69" id="file-gistfile1-txt-L69"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC69">if gameboard[0][i] == gameboard[1][i] == gameboard[2][i]:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="70" id="file-gistfile1-txt-L70"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC70">if gameboard[0][i] == '.':</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="71" id="file-gistfile1-txt-L71"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC71">continue</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="72" id="file-gistfile1-txt-L72"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC72">elif gameboard[0][i] == 'X':</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="73" id="file-gistfile1-txt-L73"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC73">print "Game over - Player 1 wins"</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="74" id="file-gistfile1-txt-L74"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC74">else:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="75" id="file-gistfile1-txt-L75"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC75">print "Game over - Player 2 wins"</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="76" id="file-gistfile1-txt-L76"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC76">return 1</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="77" id="file-gistfile1-txt-L77"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC77"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="78" id="file-gistfile1-txt-L78"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC78"># check win by diagonal</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="79" id="file-gistfile1-txt-L79"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC79">if (gameboard[0][0] == gameboard[1][1] == gameboard[2][2]) or (gameboard[0][2] == gameboard[1][1] == gameboard[2][0]):</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="80" id="file-gistfile1-txt-L80"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC80">if gameboard[1][1] == 'X':</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="81" id="file-gistfile1-txt-L81"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC81">print "Game over - Player 1 wins"</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="82" id="file-gistfile1-txt-L82"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC82">elif gameboard[1][1] == 'O':</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="83" id="file-gistfile1-txt-L83"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC83">print "Game over - Player 2 wins"</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="84" id="file-gistfile1-txt-L84"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC84">else:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="85" id="file-gistfile1-txt-L85"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC85">return 0</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="86" id="file-gistfile1-txt-L86"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC86">return 1</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="87" id="file-gistfile1-txt-L87"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC87"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="88" id="file-gistfile1-txt-L88"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC88"># check board is full</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="89" id="file-gistfile1-txt-L89"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC89">for sublist in gameboard:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="90" id="file-gistfile1-txt-L90"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC90">if searcht in sublist:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="91" id="file-gistfile1-txt-L91"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC91">return 0</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="92" id="file-gistfile1-txt-L92"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC92"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="93" id="file-gistfile1-txt-L93"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC93">print "Game over - the board is filled"</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="94" id="file-gistfile1-txt-L94"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC94">return 1</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="95" id="file-gistfile1-txt-L95"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC95"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="96" id="file-gistfile1-txt-L96"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC96"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="97" id="file-gistfile1-txt-L97"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC97"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="98" id="file-gistfile1-txt-L98"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC98"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="99" id="file-gistfile1-txt-L99"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC99"># main function that runs the game while board is not full</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="100" id="file-gistfile1-txt-L100"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC100">while not game_over():</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="101" id="file-gistfile1-txt-L101"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC101">piece = '.'</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="102" id="file-gistfile1-txt-L102"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC102"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="103" id="file-gistfile1-txt-L103"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC103"># Player input - checks for input correctness</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="104" id="file-gistfile1-txt-L104"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC104">while not input_valid(row_col):</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="105" id="file-gistfile1-txt-L105"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC105">player = turn % 2</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="106" id="file-gistfile1-txt-L106"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC106">if player == 0:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="107" id="file-gistfile1-txt-L107"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC107">player = 2</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="108" id="file-gistfile1-txt-L108"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC108">piece = 'O'</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="109" id="file-gistfile1-txt-L109"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC109">else:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="110" id="file-gistfile1-txt-L110"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC110">piece = 'X'</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="111" id="file-gistfile1-txt-L111"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC111">p1 = raw_input('Player ' + str(player) +' input: ')</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="112" id="file-gistfile1-txt-L112"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC112">row_col = p1.split(",")</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="113" id="file-gistfile1-txt-L113"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC113"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="114" id="file-gistfile1-txt-L114"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC114">draw_board(row_col, piece)</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="115" id="file-gistfile1-txt-L115"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC115"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="116" id="file-gistfile1-txt-L116"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC116">row_col = [0]</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="117" id="file-gistfile1-txt-L117"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC117">turn += 1</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="118" id="file-gistfile1-txt-L118"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC118"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="gist-meta"><a href="https://gist.github.com/cazyw/c2f8d6b4934b2e414055/raw/2d9aff23de490e364dfdb056ff0f9e821329f6c6/gistfile1.txt">view raw</a><a href="https://gist.github.com/cazyw/c2f8d6b4934b2e414055#file-gistfile1-txt">gistfile1.txt</a><span> </span>hosted with ❤ by<span> </span><a href="https://github.com/">GitHub</a></div>
+</div>
+</div>
+<p>This solution adds some bonus functions, like checking for a winner!</p>
+<p>Happy hacking!</p>
+</div>
 </div>
 </div>
 </div>

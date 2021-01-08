@@ -1,0 +1,818 @@
+<!DOCTYPE html><html>
+        <head>
+        <title>CMSiMDE</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700,900" rel="stylesheet">
+        <link rel="stylesheet" href="./../cmsimde/static/chimper/fonts/icomoon/style.css">
+        <link rel="stylesheet" href="./../cmsimde/static/chimper/css/bootstrap.min.css">
+        <link rel="stylesheet" href="./../cmsimde/static/chimper/css/magnific-popup.css">
+        <link rel="stylesheet" href="./../cmsimde/static/chimper/css/jquery-ui.css">
+        <link rel="stylesheet" href="./../cmsimde/static/chimper/css/owl.carousel.min.css">
+        <link rel="stylesheet" href="./../cmsimde/static/chimper/css/owl.theme.default.min.css">
+        <link rel="stylesheet" href="./../cmsimde/static/chimper/css/bootstrap-datepicker.css">
+        <link rel="stylesheet" href="./../cmsimde/static/chimper/fonts/flaticon/font/flaticon.css">
+        <link rel="stylesheet" href="./../cmsimde/static/chimper/css/aos.css">
+        <link rel="stylesheet" href="./../cmsimde/static/chimper/css/style.css">
+        <link rel="shortcut icon" href="./../cmsimde/static/favicons.png">
+        
+        <style type='text/css'>
+            .site-section {
+            background-color: #FFFF;
+            padding: 40px 40px;
+            }
+            body > div > div.dropdown.open {
+                display: block;
+            }
+        </style>
+    
+        <!-- <script src="./../cmsimde/static/jquery.js"></script> -->
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+        <script src="../cmsimde/static/chimper/js/jquery-3.3.1.min.js"></script>
+        <link rel="stylesheet" href="./../cmsimde/static/tipuesearch/css/normalize.min.css">
+        <script src="./../cmsimde/static/tipuesearch/tipuesearch_set.js"></script>
+        <script src="tipuesearch_content.js"></script>
+        <link rel="stylesheet" href="./../cmsimde/static/tipuesearch/css/tipuesearch.css">
+        <script src="./../cmsimde/static/tipuesearch/tipuesearch.js"></script>
+        <script>
+            /* original tipuesearch
+            $(document).ready(function() {
+                 $('#tipue_search_input').tipuesearch();
+            });
+            */
+            // customed doSearch
+            function doSearch() {
+                $('#tipue_search_input').tipuesearch({
+                    newWindow: true, 
+                    minimumLength: 2,
+                    wholeWords: false, // for search 中文
+                });
+            }
+            $(document).ready(doSearch);
+        </script>
+        
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shCore.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushBash.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushDiff.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushJScript.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushJava.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushPython.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushSql.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushHaxe.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushXml.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushPhp.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushLua.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushCpp.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushCss.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushCSharp.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushDart.js"></script>
+<link type="text/css" rel="stylesheet" href="./../cmsimde/static/syntaxhighlighter/css/shCoreDefault.css"/>
+<script type="text/javascript">SyntaxHighlighter.all();</script>
+<!-- 暫時不用
+<script src="./../cmsimde/static/fengari-web.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/Cango-13v08-min.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/CangoAxes-4v01-min.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/gearUtils-05.js"></script>
+-->
+<!-- for Brython 暫時不用
+<script src="https://scrum-3.github.io/web/brython/brython.js"></script>
+<script src="https://scrum-3.github.io/web/brython/brython_stdlib.js"></script>
+-->
+<style>
+img.add_border {
+    border: 3px solid blue;
+}
+</style>
+
+</head>
+<body>
+<div class='container'><nav>
+        
+    <div class="site-wrap">
+
+    <div class="site-mobile-menu">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div>
+    
+            <header class="site-navbar py-4 bg-white" role="banner">
+              <div class="container-fluid">
+                <div class="row align-items-center">
+                <h1>40923122 cp2020</h1>
+                <div class="pl-4">
+                    <form>
+                    <input type="text" placeholder="Search" name="q" id="tipue_search_input" pattern=".{2,}" title="At least 2 characters" required>
+                    </form>
+                </div>
+                  <!-- <div class="col-11 col-xl-2">
+                    <h1 class="mb-0 site-logo"><a href="index.html" class="text-black h2 mb-0">40923122 cp2020</a></h1> 
+                  </div>
+                  -->
+                  <div class="col-12 col-md-10 d-none d-xl-block">
+                    <nav class="site-navigation position-relative text-right" role="navigation">
+    <ul class='site-menu js-clone-nav mr-auto d-none d-lg-block'>
+                        <li class="active has-children"><a href="index.html">Home</a>
+                        <ul class="dropdown">
+                            <li><a href="sitemap.html">Site Map</a></li>
+                            <li><a href="./../reveal/index.html">reveal</a></li>
+                            <li><a href="./../blog/index.html">blog</a></li>
+                        </ul>
+                      </li>
+                     <li><a href='About.html'>About</a><li class='has-children'><a href='Hint.html'>Hint</a><ul class='dropdown'><li><a href='gitlab-ci.yml.html'>gitlab-ci.yml</a></li></ul><li class='has-children'><a href='CMSiMDE.html'>CMSiMDE</a><ul class='dropdown'><li class='has-children'><a href='CMSiMDE 程式架構.html'>CMSiMDE 程式架構</a><ul class='dropdown'><li><a href='為何需要網際內容管理.html'>為何需要網際內容管理</a><li><a href='如何建立 CMSiMDE 子模組.html'>如何建立 CMSiMDE 子模組</a><li><a href='為何需要以子模組的設計.html'>為何需要以子模組的設計</a><li><a href='兩種不同的 git clone.html'>兩種不同的 git clone</a><li><a href='假如 CMSiMDE 不設為子模組.html'>假如 CMSiMDE 不設為子模組</a><li><a href='為何需要有動態網頁與靜態網頁.html'>為何需要有動態網頁與靜態網頁</a><li><a href='CMSiMDE 有甚麼使用上的限制嗎比方說能夠使用那些特殊符號, 為什麼不能使用分號, 以及所謂的標題有沒有最多幾個字元的限制, 另外就是假如標題過長, 會發生甚麼狀況與後果.html'>CMSiMDE 有甚麼使用上的限制嗎比方說能夠使用那些特殊符號, 為什麼不能使用分號, 以及所謂的標題有沒有最多幾個字元的限制, 另外就是假如標題過長, 會發生甚麼狀況與後果</a></li></li></ul></ul><li class='has-children'><a href='HW1.html'>HW1</a><ul class='dropdown'><li><a href='P62英.html'>P62英</a><li><a href='P63英.html'>P63英</a><li><a href='P64英.html'>P64英</a><li><a href='P65英.html'>P65英</a><li><a href='p67英.html'>p67英</a><li><a href='p68英.html'>p68英</a><li><a href='P69英.html'>P69英</a><li><a href='p70英.html'>p70英</a><li><a href='p72英.html'>p72英</a></li></ul><li class='has-children'><a href='HW1-1.html'>HW1-1</a><ul class='dropdown'><li><a href='P62中.html'>P62中</a><li><a href='P63中.html'>P63中</a><li><a href='P64中.html'>P64中</a><li><a href='P65中.html'>P65中</a><li><a href='P67中.html'>P67中</a><li><a href='P68中.html'>P68中</a><li><a href='P69中.html'>P69中</a><li><a href='P70中.html'>P70中</a><li><a href='P72中.html'>P72中</a></li></ul><li class='has-children'><a href='HW3 Exercises.html'>HW3 Exercises</a><ul class='dropdown'><li><a href='25-1.html'>25-1</a><li><a href='26-1.html'>26-1</a><li><a href='27-1.html'>27-1</a></li></ul><li class='has-children'><a href='HW3 Solutions.html'>HW3 Solutions</a><ul class='dropdown'><li><a href='25-2.html'>25-2</a><li><a href='26-2.html'>26-2</a><li><a href='27-2.html'>27-2</a></li>
+                      </ul>
+                </nav>
+              </div>
+              <div class="d-inline-block d-xl-none ml-md-0 mr-auto py-3" style="position: relative; top: 3px;"><a href="#" class="site-menu-toggle js-menu-toggle text-black"><span class="icon-menu h3"></span></a></div>
+              </div>
+
+            </div>
+          </div>
+          
+        </header>
+    <div id="tipue_search_content">26-2 << <a href='26-2.html'>Previous</a> <br /><h1>27-2</h1>
+<div><i>Tic Tac Toe Draw Solutions</i></div>
+<div><i></i></div>
+<p>Exercise 27</p>
+<p><em>This exercise is Part 3 of 4 of the Tic Tac Toe exercise series. The other exercises are:<span> </span><a href="https://www.practicepython.org/exercise/2014/12/27/24-draw-a-game-board.html">Part 1</a>,<span> </span><a href="https://www.practicepython.org/exercise/2015/11/16/26-check-tic-tac-toe.html">Part 2</a>, and<span> </span><a href="https://www.practicepython.org/exercise/2016/08/03/29-tic-tac-toe-game.html">Part 4</a>.</em></p>
+<p>In a<span> </span><a href="https://www.practicepython.org/exercise/2015/11/16/26-check-tic-tac-toe.html">previous exercise</a><span> </span>we explored the idea of using a list of lists as a “data structure” to store information about a tic tac toe game. In a tic tac toe game, the “game server” needs to know where the<span> </span><code class="highlighter-rouge">X</code>s and<span> </span><code class="highlighter-rouge">O</code>s are in the board, to know whether player 1 or player 2 (or whoever is<span> </span><code class="highlighter-rouge">X</code><span> </span>and<span> </span><code class="highlighter-rouge">O</code><span> </span>won).</p>
+<p>There has also been an exercise about<span> </span><a href="https://www.practicepython.org/exercise/2014/12/27/24-draw-a-game-board.html">drawing the actual tic tac toe gameboard</a><span> </span>using text characters.</p>
+<p>The next logical step is to deal with handling user input. When a player (say player 1, who is<span> </span><code class="highlighter-rouge">X</code>) wants to place an<span> </span><code class="highlighter-rouge">X</code><span> </span>on the screen, they can’t just click on a terminal. So we are going to approximate this clicking simply by asking the user for a coordinate of where they want to place their piece.</p>
+<p>As a reminder, our tic tac toe game is really a list of lists. The game starts out with an empty game board like this:</p>
+<figure class="highlight">
+<pre><code class="language-python" data-lang="python"><span class="n">game</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span></code></pre>
+</figure>
+<p>The computer asks Player 1 (X) what their move is (in the format<span> </span><code class="highlighter-rouge">row,col</code>), and say they type<span> </span><code class="highlighter-rouge">1,3</code>. Then the game would print out</p>
+<figure class="highlight">
+<pre><code class="language-python" data-lang="python"><span class="n">game</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">X</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span></code></pre>
+</figure>
+<p>And ask Player 2 for their move, printing an<span> </span><code class="highlighter-rouge">O</code><span> </span>in that place.</p>
+<p>Things to note:</p>
+<ul>
+<li>For this exercise, assume that player 1 (the first player to move) will always be<span> </span><code class="highlighter-rouge">X</code><span> </span>and player 2 (the second player) will always be<span> </span><code class="highlighter-rouge">O</code>.</li>
+<li>Notice how in the example I gave coordinates for where I want to move starting from (1, 1) instead of (0, 0). To people who don’t program, starting to count at 0 is a strange concept, so it is better for the user experience if the row counts and column counts start at 1. This is not required, but whichever way you choose to implement this, it should be explained to the player.</li>
+<li>Ask the user to enter coordinates in the form “row,col” - a number, then a comma, then a number. Then you can use your Python skills to figure out which row and column they want their piece to be in.</li>
+<li>Don’t worry about checking whether someone won the game, but if a player tries to put a piece in a game position where there already is another piece, do not allow the piece to go there.</li>
+</ul>
+<p>Bonus:</p>
+<ul>
+<li>For the “standard” exercise, don’t worry about “ending” the game - no need to keep track of how many squares are full. In a bonus version, keep track of how many squares are full and automatically stop asking for moves when there are no more valid moves.</li>
+</ul>
+<p>Sample solutions</p>
+<p>Here is one solution that does not fully complete the exercise, but gives a bit of food for thought. The<span> </span><code class="highlighter-rouge">drawboard</code><span> </span>function is a general function that can be used to draw the game board with any given inputs.</p>
+<div class="gist" id="gist31170658">
+<div class="gist-file">
+<div class="gist-data">
+<div class="js-gist-file-update-container js-task-list-container file-box">
+<div class="file my-2" id="file-tictactoe-py">
+<div class="Box-body p-0 blob-wrapper data type-python" itemprop="text">
+<table class="highlight tab-size js-file-line-container" data-paste-markdown-skip="" data-tab-size="8">
+<tbody>
+<tr>
+<td class="blob-num js-line-number" data-line-number="1" id="file-tictactoe-py-L1"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoe-py-LC1"><span class="pl-k">def</span> <span class="pl-en">drawboard</span>(<span class="pl-s1">board</span>):</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="2" id="file-tictactoe-py-L2"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoe-py-LC2"><span class="pl-en">print</span> (<span class="pl-s">' | | '</span>)</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="3" id="file-tictactoe-py-L3"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoe-py-LC3"><span class="pl-en">print</span> (<span class="pl-s">''</span> <span class="pl-c1">+</span><span class="pl-s1">board</span>[<span class="pl-c1">6</span>]<span class="pl-c1">+</span> <span class="pl-s">' | '</span> <span class="pl-c1">+</span><span class="pl-s1">board</span>[<span class="pl-c1">7</span>]<span class="pl-c1">+</span> <span class="pl-s">' | '</span> <span class="pl-c1">+</span><span class="pl-s1">board</span>[<span class="pl-c1">8</span>] )</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="4" id="file-tictactoe-py-L4"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoe-py-LC4"><span class="pl-en">print</span> (<span class="pl-s">' | | '</span>)</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="5" id="file-tictactoe-py-L5"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoe-py-LC5"><span class="pl-en">print</span> (<span class="pl-s">'---------------'</span>)</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="6" id="file-tictactoe-py-L6"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoe-py-LC6"><span class="pl-en">print</span> (<span class="pl-s">' | | '</span>)</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="7" id="file-tictactoe-py-L7"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoe-py-LC7"><span class="pl-en">print</span> (<span class="pl-s">''</span> <span class="pl-c1">+</span><span class="pl-s1">board</span>[<span class="pl-c1">3</span>]<span class="pl-c1">+</span> <span class="pl-s">' | '</span> <span class="pl-c1">+</span><span class="pl-s1">board</span>[<span class="pl-c1">4</span>]<span class="pl-c1">+</span> <span class="pl-s">' | '</span> <span class="pl-c1">+</span><span class="pl-s1">board</span>[<span class="pl-c1">5</span>] )</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="8" id="file-tictactoe-py-L8"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoe-py-LC8"><span class="pl-en">print</span> (<span class="pl-s">' | | '</span>)</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="9" id="file-tictactoe-py-L9"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoe-py-LC9"><span class="pl-en">print</span>(<span class="pl-s">'-----------------'</span>)</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="10" id="file-tictactoe-py-L10"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoe-py-LC10"><span class="pl-en">print</span> (<span class="pl-s">' | | '</span>)</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="11" id="file-tictactoe-py-L11"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoe-py-LC11"><span class="pl-en">print</span> (<span class="pl-s">''</span> <span class="pl-c1">+</span><span class="pl-s1">board</span>[<span class="pl-c1">0</span>]<span class="pl-c1">+</span> <span class="pl-s">' | '</span> <span class="pl-c1">+</span><span class="pl-s1">board</span>[<span class="pl-c1">1</span>]<span class="pl-c1">+</span> <span class="pl-s">' |'</span> <span class="pl-c1">+</span><span class="pl-s1">board</span>[<span class="pl-c1">2</span>] )</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="12" id="file-tictactoe-py-L12"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoe-py-LC12"><span class="pl-en">print</span> (<span class="pl-s">' | | '</span>)</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="13" id="file-tictactoe-py-L13"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoe-py-LC13"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="14" id="file-tictactoe-py-L14"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoe-py-LC14"><span class="pl-en">drawboard</span>([<span class="pl-s">''</span>, <span class="pl-s">''</span>, <span class="pl-s">''</span>, <span class="pl-s">''</span>, <span class="pl-s">''</span>, <span class="pl-s">''</span>, <span class="pl-s">''</span>, <span class="pl-s">''</span>, <span class="pl-s">''</span>])</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="gist-meta"><a href="https://gist.github.com/Sreekaanth91/70c64445c214ca9df8ed/raw/9b7b278884512631c75ac9e3b0721abdd9422ba4/tictactoe.py">view raw</a><a href="https://gist.github.com/Sreekaanth91/70c64445c214ca9df8ed#file-tictactoe-py">tictactoe.py</a><span> </span>hosted with ❤ by<span> </span><a href="https://github.com/">GitHub</a></div>
+</div>
+</div>
+<p>Another solution uses lots of functions, and also checks whether the game has ended!</p>
+<div class="gist" id="gist31227989">
+<div class="gist-file">
+<div class="gist-data">
+<div class="js-gist-file-update-container js-task-list-container file-box">
+<div class="file my-2" id="file-gistfile1-txt">
+<div class="Box-body p-0 blob-wrapper data type-text" itemprop="text">
+<table class="highlight tab-size js-file-line-container" data-paste-markdown-skip="" data-tab-size="8">
+<tbody>
+<tr>
+<td class="blob-num js-line-number" data-line-number="1" id="file-gistfile1-txt-L1"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC1"># Python Exercises <a class="vglnk" href="http://www.practicepython.org/" rel="nofollow"><span>http</span><span>://</span><span>www</span><span>.</span><span>practicepython</span><span>.</span><span>org</span><span>/</span></a></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="2" id="file-gistfile1-txt-L2"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC2"># Exercise 27 - Tic Tac Toe Draw</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="3" id="file-gistfile1-txt-L3"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC3"># Exercise to draw Tic Tac Toe gameboard the game board getting input from Player 1 and Player 2</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="4" id="file-gistfile1-txt-L4"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC4"># Last updated: 17/02/2016</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="5" id="file-gistfile1-txt-L5"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC5">#</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="6" id="file-gistfile1-txt-L6"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC6"># - gets input from two players</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="7" id="file-gistfile1-txt-L7"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC7"># - checks the input for correctness: row,col</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="8" id="file-gistfile1-txt-L8"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC8"># - exits if board is full or there is a winner</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="9" id="file-gistfile1-txt-L9"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC9"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="10" id="file-gistfile1-txt-L10"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC10"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="11" id="file-gistfile1-txt-L11"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC11"># initialise the game board</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="12" id="file-gistfile1-txt-L12"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC12">gameboard = [(['.']*3) for i in range(3)]</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="13" id="file-gistfile1-txt-L13"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC13"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="14" id="file-gistfile1-txt-L14"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC14"># variables for input and turn count</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="15" id="file-gistfile1-txt-L15"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC15">row_col = [0]</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="16" id="file-gistfile1-txt-L16"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC16">turn = 1</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="17" id="file-gistfile1-txt-L17"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC17"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="18" id="file-gistfile1-txt-L18"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC18"># checks that the input is valid</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="19" id="file-gistfile1-txt-L19"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC19"># - that it is in the format "row,col"</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="20" id="file-gistfile1-txt-L20"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC20"># - that the position is free</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="21" id="file-gistfile1-txt-L21"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC21">def input_valid(values):</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="22" id="file-gistfile1-txt-L22"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC22"># input has only two values</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="23" id="file-gistfile1-txt-L23"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC23">if len(values) != 2:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="24" id="file-gistfile1-txt-L24"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC24">print "Input must be two numbers in format row,col e.g. 1,2 "</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="25" id="file-gistfile1-txt-L25"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC25">return 0</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="26" id="file-gistfile1-txt-L26"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC26"># input is a number between 1 and 3 (inclusive)</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="27" id="file-gistfile1-txt-L27"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC27">try:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="28" id="file-gistfile1-txt-L28"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC28">if (1 &lt;= int(values[0]) &lt;= 3) and (1 &lt;= int(values[1]) &lt;= 3):</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="29" id="file-gistfile1-txt-L29"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC29"># checks if the position on the board is alreay filled</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="30" id="file-gistfile1-txt-L30"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC30">if gameboard[int(values[0])-1][int(values[1])-1] != '.':</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="31" id="file-gistfile1-txt-L31"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC31">print "Position on board already taken."</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="32" id="file-gistfile1-txt-L32"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC32">return 0</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="33" id="file-gistfile1-txt-L33"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC33">return 1</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="34" id="file-gistfile1-txt-L34"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC34">else:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="35" id="file-gistfile1-txt-L35"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC35">print "Input values must be numbers between 1 and 3 (inclusive)"</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="36" id="file-gistfile1-txt-L36"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC36">return 0</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="37" id="file-gistfile1-txt-L37"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC37">except ValueError:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="38" id="file-gistfile1-txt-L38"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC38">print "Input values must be numbers between 1 and 3 (inclusive)"</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="39" id="file-gistfile1-txt-L39"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC39">return 0</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="40" id="file-gistfile1-txt-L40"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC40"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="41" id="file-gistfile1-txt-L41"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC41"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="42" id="file-gistfile1-txt-L42"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC42"># draw the board</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="43" id="file-gistfile1-txt-L43"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC43">def draw_board(values, player):</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="44" id="file-gistfile1-txt-L44"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC44"># changes the value to X or O</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="45" id="file-gistfile1-txt-L45"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC45">gameboard[int(values[0])-1][int(values[1])-1]=player</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="46" id="file-gistfile1-txt-L46"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC46"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="47" id="file-gistfile1-txt-L47"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC47"># print the gameboard</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="48" id="file-gistfile1-txt-L48"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC48">for row in gameboard:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="49" id="file-gistfile1-txt-L49"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC49">print row</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="50" id="file-gistfile1-txt-L50"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC50"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="51" id="file-gistfile1-txt-L51"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC51"># calculate if game is over (no more '.' or has winner)</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="52" id="file-gistfile1-txt-L52"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC52">def game_over():</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="53" id="file-gistfile1-txt-L53"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC53">searcht = '.'</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="54" id="file-gistfile1-txt-L54"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC54"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="55" id="file-gistfile1-txt-L55"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC55"># check win by row</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="56" id="file-gistfile1-txt-L56"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC56">for i in range(3):</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="57" id="file-gistfile1-txt-L57"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC57">if len(set(gameboard[i])) == 1:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="58" id="file-gistfile1-txt-L58"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC58">if gameboard[i][1] == '.':</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="59" id="file-gistfile1-txt-L59"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC59">continue</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="60" id="file-gistfile1-txt-L60"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC60">elif gameboard[i][1] == 'X':</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="61" id="file-gistfile1-txt-L61"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC61">print "Game over - Player 1 wins"</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="62" id="file-gistfile1-txt-L62"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC62">#elif gameboard[i][1] == 'O':</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="63" id="file-gistfile1-txt-L63"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC63">else:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="64" id="file-gistfile1-txt-L64"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC64">print "Game over - Player 2 wins"</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="65" id="file-gistfile1-txt-L65"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC65">return 1</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="66" id="file-gistfile1-txt-L66"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC66"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="67" id="file-gistfile1-txt-L67"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC67"># check win by column</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="68" id="file-gistfile1-txt-L68"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC68">for i in range(3):</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="69" id="file-gistfile1-txt-L69"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC69">if gameboard[0][i] == gameboard[1][i] == gameboard[2][i]:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="70" id="file-gistfile1-txt-L70"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC70">if gameboard[0][i] == '.':</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="71" id="file-gistfile1-txt-L71"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC71">continue</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="72" id="file-gistfile1-txt-L72"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC72">elif gameboard[0][i] == 'X':</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="73" id="file-gistfile1-txt-L73"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC73">print "Game over - Player 1 wins"</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="74" id="file-gistfile1-txt-L74"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC74">else:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="75" id="file-gistfile1-txt-L75"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC75">print "Game over - Player 2 wins"</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="76" id="file-gistfile1-txt-L76"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC76">return 1</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="77" id="file-gistfile1-txt-L77"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC77"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="78" id="file-gistfile1-txt-L78"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC78"># check win by diagonal</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="79" id="file-gistfile1-txt-L79"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC79">if (gameboard[0][0] == gameboard[1][1] == gameboard[2][2]) or (gameboard[0][2] == gameboard[1][1] == gameboard[2][0]):</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="80" id="file-gistfile1-txt-L80"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC80">if gameboard[1][1] == 'X':</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="81" id="file-gistfile1-txt-L81"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC81">print "Game over - Player 1 wins"</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="82" id="file-gistfile1-txt-L82"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC82">elif gameboard[1][1] == 'O':</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="83" id="file-gistfile1-txt-L83"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC83">print "Game over - Player 2 wins"</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="84" id="file-gistfile1-txt-L84"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC84">else:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="85" id="file-gistfile1-txt-L85"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC85">return 0</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="86" id="file-gistfile1-txt-L86"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC86">return 1</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="87" id="file-gistfile1-txt-L87"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC87"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="88" id="file-gistfile1-txt-L88"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC88"># check board is full</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="89" id="file-gistfile1-txt-L89"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC89">for sublist in gameboard:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="90" id="file-gistfile1-txt-L90"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC90">if searcht in sublist:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="91" id="file-gistfile1-txt-L91"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC91">return 0</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="92" id="file-gistfile1-txt-L92"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC92"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="93" id="file-gistfile1-txt-L93"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC93">print "Game over - the board is filled"</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="94" id="file-gistfile1-txt-L94"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC94">return 1</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="95" id="file-gistfile1-txt-L95"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC95"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="96" id="file-gistfile1-txt-L96"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC96"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="97" id="file-gistfile1-txt-L97"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC97"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="98" id="file-gistfile1-txt-L98"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC98"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="99" id="file-gistfile1-txt-L99"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC99"># main function that runs the game while board is not full</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="100" id="file-gistfile1-txt-L100"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC100">while not game_over():</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="101" id="file-gistfile1-txt-L101"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC101">piece = '.'</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="102" id="file-gistfile1-txt-L102"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC102"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="103" id="file-gistfile1-txt-L103"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC103"># Player input - checks for input correctness</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="104" id="file-gistfile1-txt-L104"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC104">while not input_valid(row_col):</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="105" id="file-gistfile1-txt-L105"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC105">player = turn % 2</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="106" id="file-gistfile1-txt-L106"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC106">if player == 0:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="107" id="file-gistfile1-txt-L107"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC107">player = 2</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="108" id="file-gistfile1-txt-L108"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC108">piece = 'O'</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="109" id="file-gistfile1-txt-L109"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC109">else:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="110" id="file-gistfile1-txt-L110"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC110">piece = 'X'</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="111" id="file-gistfile1-txt-L111"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC111">p1 = raw_input('Player ' + str(player) +' input: ')</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="112" id="file-gistfile1-txt-L112"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC112">row_col = p1.split(",")</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="113" id="file-gistfile1-txt-L113"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC113"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="114" id="file-gistfile1-txt-L114"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC114">draw_board(row_col, piece)</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="115" id="file-gistfile1-txt-L115"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC115"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="116" id="file-gistfile1-txt-L116"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC116">row_col = [0]</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="117" id="file-gistfile1-txt-L117"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC117">turn += 1</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="118" id="file-gistfile1-txt-L118"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-gistfile1-txt-LC118"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="gist-meta"><a href="https://gist.github.com/cazyw/c2f8d6b4934b2e414055/raw/2d9aff23de490e364dfdb056ff0f9e821329f6c6/gistfile1.txt">view raw</a><a href="https://gist.github.com/cazyw/c2f8d6b4934b2e414055#file-gistfile1-txt">gistfile1.txt</a><span> </span>hosted with ❤ by<span> </span><a href="https://github.com/">GitHub</a></div>
+</div>
+</div>
+<p>This solution adds some bonus functions, like checking for a winner!</p>
+<p>Happy hacking!</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><br />26-2 << <a href='26-2.html'>Previous</a> </div>
+        
+    <!-- footer -->
+      <div class="container">
+        <div class="row pt-3 mx-auto">
+            <p>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </p>
+        </div>
+      </div>
+    <!-- for footer -->
+    
+        </div> <!-- for site wrap -->
+            <!-- <script src="../cmsimde/static/chimper/js/jquery-3.3.1.min.js"></script> -->
+            <script src="../cmsimde/static/chimper/js/jquery-migrate-3.0.1.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/jquery-ui.js"></script>
+            <script src="../cmsimde/static/chimper/js/popper.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/bootstrap.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/owl.carousel.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/jquery.stellar.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/jquery.countdown.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/jquery.magnific-popup.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/bootstrap-datepicker.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/aos.js"></script>
+            <!--
+            <script src="../cmsimde/static/chimper/js/typed.js"></script>
+                    <script>
+                    var typed = new Typed('.typed-words', {
+                    strings: ["Web Apps"," WordPress"," Mobile Apps"],
+                    typeSpeed: 80,
+                    backSpeed: 80,
+                    backDelay: 4000,
+                    startDelay: 1000,
+                    loop: true,
+                    showCursor: true
+                    });
+                    </script>
+            -->
+            <script src="../cmsimde/static/chimper/js/main.js"></script>
+        
+<!-- 啟用 LaTeX equations 編輯 -->
+  <!-- <script>
+  MathJax = {
+    tex: {inlineMath: [['$', '$'], ['\(', '\)']]}
+  };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>-->
+    </body></html>
+        

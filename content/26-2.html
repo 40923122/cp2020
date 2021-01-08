@@ -1,0 +1,564 @@
+<!DOCTYPE html><html>
+        <head>
+        <title>CMSiMDE</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700,900" rel="stylesheet">
+        <link rel="stylesheet" href="./../cmsimde/static/chimper/fonts/icomoon/style.css">
+        <link rel="stylesheet" href="./../cmsimde/static/chimper/css/bootstrap.min.css">
+        <link rel="stylesheet" href="./../cmsimde/static/chimper/css/magnific-popup.css">
+        <link rel="stylesheet" href="./../cmsimde/static/chimper/css/jquery-ui.css">
+        <link rel="stylesheet" href="./../cmsimde/static/chimper/css/owl.carousel.min.css">
+        <link rel="stylesheet" href="./../cmsimde/static/chimper/css/owl.theme.default.min.css">
+        <link rel="stylesheet" href="./../cmsimde/static/chimper/css/bootstrap-datepicker.css">
+        <link rel="stylesheet" href="./../cmsimde/static/chimper/fonts/flaticon/font/flaticon.css">
+        <link rel="stylesheet" href="./../cmsimde/static/chimper/css/aos.css">
+        <link rel="stylesheet" href="./../cmsimde/static/chimper/css/style.css">
+        <link rel="shortcut icon" href="./../cmsimde/static/favicons.png">
+        
+        <style type='text/css'>
+            .site-section {
+            background-color: #FFFF;
+            padding: 40px 40px;
+            }
+            body > div > div.dropdown.open {
+                display: block;
+            }
+        </style>
+    
+        <!-- <script src="./../cmsimde/static/jquery.js"></script> -->
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+        <script src="../cmsimde/static/chimper/js/jquery-3.3.1.min.js"></script>
+        <link rel="stylesheet" href="./../cmsimde/static/tipuesearch/css/normalize.min.css">
+        <script src="./../cmsimde/static/tipuesearch/tipuesearch_set.js"></script>
+        <script src="tipuesearch_content.js"></script>
+        <link rel="stylesheet" href="./../cmsimde/static/tipuesearch/css/tipuesearch.css">
+        <script src="./../cmsimde/static/tipuesearch/tipuesearch.js"></script>
+        <script>
+            /* original tipuesearch
+            $(document).ready(function() {
+                 $('#tipue_search_input').tipuesearch();
+            });
+            */
+            // customed doSearch
+            function doSearch() {
+                $('#tipue_search_input').tipuesearch({
+                    newWindow: true, 
+                    minimumLength: 2,
+                    wholeWords: false, // for search 中文
+                });
+            }
+            $(document).ready(doSearch);
+        </script>
+        
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shCore.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushBash.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushDiff.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushJScript.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushJava.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushPython.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushSql.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushHaxe.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushXml.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushPhp.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushLua.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushCpp.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushCss.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushCSharp.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/syntaxhighlighter/shBrushDart.js"></script>
+<link type="text/css" rel="stylesheet" href="./../cmsimde/static/syntaxhighlighter/css/shCoreDefault.css"/>
+<script type="text/javascript">SyntaxHighlighter.all();</script>
+<!-- 暫時不用
+<script src="./../cmsimde/static/fengari-web.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/Cango-13v08-min.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/CangoAxes-4v01-min.js"></script>
+<script type="text/javascript" src="./../cmsimde/static/gearUtils-05.js"></script>
+-->
+<!-- for Brython 暫時不用
+<script src="https://scrum-3.github.io/web/brython/brython.js"></script>
+<script src="https://scrum-3.github.io/web/brython/brython_stdlib.js"></script>
+-->
+<style>
+img.add_border {
+    border: 3px solid blue;
+}
+</style>
+
+</head>
+<body>
+<div class='container'><nav>
+        
+    <div class="site-wrap">
+
+    <div class="site-mobile-menu">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div>
+    
+            <header class="site-navbar py-4 bg-white" role="banner">
+              <div class="container-fluid">
+                <div class="row align-items-center">
+                <h1>40923122 cp2020</h1>
+                <div class="pl-4">
+                    <form>
+                    <input type="text" placeholder="Search" name="q" id="tipue_search_input" pattern=".{2,}" title="At least 2 characters" required>
+                    </form>
+                </div>
+                  <!-- <div class="col-11 col-xl-2">
+                    <h1 class="mb-0 site-logo"><a href="index.html" class="text-black h2 mb-0">40923122 cp2020</a></h1> 
+                  </div>
+                  -->
+                  <div class="col-12 col-md-10 d-none d-xl-block">
+                    <nav class="site-navigation position-relative text-right" role="navigation">
+    <ul class='site-menu js-clone-nav mr-auto d-none d-lg-block'>
+                        <li class="active has-children"><a href="index.html">Home</a>
+                        <ul class="dropdown">
+                            <li><a href="sitemap.html">Site Map</a></li>
+                            <li><a href="./../reveal/index.html">reveal</a></li>
+                            <li><a href="./../blog/index.html">blog</a></li>
+                        </ul>
+                      </li>
+                     <li><a href='About.html'>About</a><li class='has-children'><a href='Hint.html'>Hint</a><ul class='dropdown'><li><a href='gitlab-ci.yml.html'>gitlab-ci.yml</a></li></ul><li class='has-children'><a href='CMSiMDE.html'>CMSiMDE</a><ul class='dropdown'><li class='has-children'><a href='CMSiMDE 程式架構.html'>CMSiMDE 程式架構</a><ul class='dropdown'><li><a href='為何需要網際內容管理.html'>為何需要網際內容管理</a><li><a href='如何建立 CMSiMDE 子模組.html'>如何建立 CMSiMDE 子模組</a><li><a href='為何需要以子模組的設計.html'>為何需要以子模組的設計</a><li><a href='兩種不同的 git clone.html'>兩種不同的 git clone</a><li><a href='假如 CMSiMDE 不設為子模組.html'>假如 CMSiMDE 不設為子模組</a><li><a href='為何需要有動態網頁與靜態網頁.html'>為何需要有動態網頁與靜態網頁</a><li><a href='CMSiMDE 有甚麼使用上的限制嗎比方說能夠使用那些特殊符號, 為什麼不能使用分號, 以及所謂的標題有沒有最多幾個字元的限制, 另外就是假如標題過長, 會發生甚麼狀況與後果.html'>CMSiMDE 有甚麼使用上的限制嗎比方說能夠使用那些特殊符號, 為什麼不能使用分號, 以及所謂的標題有沒有最多幾個字元的限制, 另外就是假如標題過長, 會發生甚麼狀況與後果</a></li></li></ul></ul><li class='has-children'><a href='HW1.html'>HW1</a><ul class='dropdown'><li><a href='P62英.html'>P62英</a><li><a href='P63英.html'>P63英</a><li><a href='P64英.html'>P64英</a><li><a href='P65英.html'>P65英</a><li><a href='p67英.html'>p67英</a><li><a href='p68英.html'>p68英</a><li><a href='P69英.html'>P69英</a><li><a href='p70英.html'>p70英</a><li><a href='p72英.html'>p72英</a></li></ul><li class='has-children'><a href='HW1-1.html'>HW1-1</a><ul class='dropdown'><li><a href='P62中.html'>P62中</a><li><a href='P63中.html'>P63中</a><li><a href='P64中.html'>P64中</a><li><a href='P65中.html'>P65中</a><li><a href='P67中.html'>P67中</a><li><a href='P68中.html'>P68中</a><li><a href='P69中.html'>P69中</a><li><a href='P70中.html'>P70中</a><li><a href='P72中.html'>P72中</a></li></ul><li class='has-children'><a href='HW3 Exercises.html'>HW3 Exercises</a><ul class='dropdown'><li><a href='25-1.html'>25-1</a><li><a href='26-1.html'>26-1</a><li><a href='27-1.html'>27-1</a></li></ul><li class='has-children'><a href='HW3 Solutions.html'>HW3 Solutions</a><ul class='dropdown'><li><a href='25-2.html'>25-2</a><li><a href='26-2.html'>26-2</a><li><a href='27-2.html'>27-2</a></li>
+                      </ul>
+                </nav>
+              </div>
+              <div class="d-inline-block d-xl-none ml-md-0 mr-auto py-3" style="position: relative; top: 3px;"><a href="#" class="site-menu-toggle js-menu-toggle text-black"><span class="icon-menu h3"></span></a></div>
+              </div>
+
+            </div>
+          </div>
+          
+        </header>
+    <div id="tipue_search_content">25-2 << <a href='25-2.html'>Previous</a> <a href='27-2.html'>Next</a> >> 27-2<br /><h1>26-2</h1>
+<p>Check Tic Tac Toe Solutions</p>
+<p>Exercise 26</p>
+<p><em>This exercise is Part 2 of 4 of the Tic Tac Toe exercise series. The other exercises are:<span> </span><a href="https://www.practicepython.org/exercise/2014/12/27/24-draw-a-game-board.html">Part 1</a>,<span> </span><a href="https://www.practicepython.org/exercise/2015/11/26/27-tic-tac-toe-draw.html">Part 3</a>, and<span> </span><a href="https://www.practicepython.org/exercise/2016/08/03/29-tic-tac-toe-game.html">Part 4</a>.</em></p>
+<p>As you may have guessed, we are trying to build up to a full tic-tac-toe board. However, this is significantly more than half an hour of coding, so we’re doing it in pieces.</p>
+<p>Today, we will simply focus on checking whether someone has WON a game of Tic Tac Toe, not worrying about how the moves were made.</p>
+<p>If a game of Tic Tac Toe is represented as a list of lists, like so:</p>
+<figure class="highlight">
+<pre><code class="language-python" data-lang="python"><span class="n">game</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span></code></pre>
+</figure>
+<p>where a<span> </span><code class="highlighter-rouge">0</code><span> </span>means an empty square, a<span> </span><code class="highlighter-rouge">1</code><span> </span>means that player 1 put their token in that space, and a<span> </span><code class="highlighter-rouge">2</code><span> </span>means that player 2 put their token in that space.</p>
+<p>Your task this week: given a 3 by 3 list of lists that represents a Tic Tac Toe game board, tell me whether anyone has won, and tell me which player won, if any. A Tic Tac Toe win is 3 in a row - either in a row, a column, or a diagonal. Don’t worry about the case where TWO people have won - assume that in every board there will only be one winner.</p>
+<p>Here are some more examples to work with:</p>
+<figure class="highlight">
+<pre><code class="language-python" data-lang="python"><span class="n">winner_is_2</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+
+<span class="n">winner_is_1</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+
+<span class="n">winner_is_also_1</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+
+<span class="n">no_winner</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span>
+
+<span class="n">also_no_winner</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]<br/><br/></span></code></pre>
+</figure>
+<p>Sample solutions</p>
+<p>There were many strategies for approaching this problem. The important part is to be careful about checking rows, columns, and diagonals for winners. Things like making sure that a row of<span> </span><code class="highlighter-rouge">0</code>,<span> </span><code class="highlighter-rouge">0</code>,<span> </span><code class="highlighter-rouge">0</code><span> </span>doesn’t win with player number 0 is important, and making sure to count the columns and rows at the edges.</p>
+<p>A few submitted solutions are below - feel free to comment if you think you have a better one, and I’ll put it up here!</p>
+<p>Not using too many functions, but using the<span> </span><code class="highlighter-rouge">numpy</code><span> </span>library to transpose the game board, turning column-checking into row-checking.</p>
+<div class="gist" id="gist28147071">
+<div class="gist-file">
+<div class="gist-data">
+<div class="js-gist-file-update-container js-task-list-container file-box">
+<div class="file my-2" id="file-tic_tac_toe_check-py">
+<div class="Box-body p-0 blob-wrapper data type-python" itemprop="text">
+<table class="highlight tab-size js-file-line-container" data-paste-markdown-skip="" data-tab-size="8">
+<tbody>
+<tr>
+<td class="blob-num js-line-number" data-line-number="1" id="file-tic_tac_toe_check-py-L1"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC1"><span class="pl-k">import</span> <span class="pl-s1">numpy</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="2" id="file-tic_tac_toe_check-py-L2"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC2"><span class="pl-s1">game</span> <span class="pl-c1">=</span> [</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="3" id="file-tic_tac_toe_check-py-L3"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC3">[<span class="pl-c1">2</span>,<span class="pl-c1">2</span>,<span class="pl-c1">1</span>],</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="4" id="file-tic_tac_toe_check-py-L4"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC4">[<span class="pl-c1">1</span>,<span class="pl-c1">1</span>,<span class="pl-c1">2</span>],</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="5" id="file-tic_tac_toe_check-py-L5"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC5">[<span class="pl-c1">1</span>,<span class="pl-c1">2</span>,<span class="pl-c1">1</span>]]</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="6" id="file-tic_tac_toe_check-py-L6"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC6"><span class="pl-s1">set_r</span> <span class="pl-c1">=</span> ()</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="7" id="file-tic_tac_toe_check-py-L7"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC7"><span class="pl-s1">set_c</span> <span class="pl-c1">=</span> ()</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="8" id="file-tic_tac_toe_check-py-L8"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC8"><span class="pl-k">def</span> <span class="pl-en">line_match</span>(<span class="pl-s1">game</span>):</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="9" id="file-tic_tac_toe_check-py-L9"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC9"><span class="pl-k">for</span> <span class="pl-s1">i</span> <span class="pl-c1">in</span> <span class="pl-en">range</span>(<span class="pl-c1">3</span>):</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="10" id="file-tic_tac_toe_check-py-L10"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC10"><span class="pl-s1">set_r</span> <span class="pl-c1">=</span> <span class="pl-en">set</span>(<span class="pl-s1">game</span>[<span class="pl-s1">i</span>])</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="11" id="file-tic_tac_toe_check-py-L11"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC11"><span class="pl-k">if</span> <span class="pl-en">len</span>(<span class="pl-s1">set_r</span>) <span class="pl-c1">==</span> <span class="pl-c1">1</span> <span class="pl-c1">and</span> <span class="pl-s1">game</span>[<span class="pl-s1">i</span>][<span class="pl-c1">0</span>] <span class="pl-c1">!=</span> <span class="pl-c1">0</span>:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="12" id="file-tic_tac_toe_check-py-L12"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC12"><span class="pl-k">return</span> <span class="pl-s1">game</span>[<span class="pl-s1">i</span>][<span class="pl-c1">0</span>]</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="13" id="file-tic_tac_toe_check-py-L13"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC13"><span class="pl-k">return</span> <span class="pl-c1">0</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="14" id="file-tic_tac_toe_check-py-L14"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC14"><span class="pl-c">#transposed column function for future use</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="15" id="file-tic_tac_toe_check-py-L15"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC15"><span class="pl-c">#def column(game):</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="16" id="file-tic_tac_toe_check-py-L16"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC16"><span class="pl-c"># trans = numpy.transpose(game)</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="17" id="file-tic_tac_toe_check-py-L17"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC17"><span class="pl-c"># for i in range(3):</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="18" id="file-tic_tac_toe_check-py-L18"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC18"><span class="pl-c"># set_r = set(trans[i])</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="19" id="file-tic_tac_toe_check-py-L19"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC19"><span class="pl-c"># if len(set_r) == 1 and trans[i][0] != 0:</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="20" id="file-tic_tac_toe_check-py-L20"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC20"><span class="pl-c"># return list(set_r)[0]</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="21" id="file-tic_tac_toe_check-py-L21"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC21"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="22" id="file-tic_tac_toe_check-py-L22"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC22"><span class="pl-k">def</span> <span class="pl-en">diagonal_match</span>(<span class="pl-s1">game</span>):</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="23" id="file-tic_tac_toe_check-py-L23"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC23"><span class="pl-k">if</span> <span class="pl-s1">game</span>[<span class="pl-c1">1</span>][<span class="pl-c1">1</span>] <span class="pl-c1">!=</span> <span class="pl-c1">0</span>:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="24" id="file-tic_tac_toe_check-py-L24"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC24"><span class="pl-k">if</span> <span class="pl-s1">game</span>[<span class="pl-c1">1</span>][<span class="pl-c1">1</span>] <span class="pl-c1">==</span> <span class="pl-s1">game</span>[<span class="pl-c1">0</span>][<span class="pl-c1">0</span>] <span class="pl-c1">==</span> <span class="pl-s1">game</span>[<span class="pl-c1">2</span>][<span class="pl-c1">2</span>]:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="25" id="file-tic_tac_toe_check-py-L25"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC25"><span class="pl-k">return</span> <span class="pl-s1">game</span>[<span class="pl-c1">1</span>][<span class="pl-c1">1</span>]</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="26" id="file-tic_tac_toe_check-py-L26"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC26"><span class="pl-k">elif</span> <span class="pl-s1">game</span>[<span class="pl-c1">1</span>][<span class="pl-c1">1</span>] <span class="pl-c1">==</span> <span class="pl-s1">game</span>[<span class="pl-c1">0</span>][<span class="pl-c1">2</span>] <span class="pl-c1">==</span> <span class="pl-s1">game</span>[<span class="pl-c1">2</span>][<span class="pl-c1">0</span>]:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="27" id="file-tic_tac_toe_check-py-L27"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC27"><span class="pl-k">return</span> <span class="pl-s1">game</span>[<span class="pl-c1">1</span>][<span class="pl-c1">1</span>]</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="28" id="file-tic_tac_toe_check-py-L28"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC28"><span class="pl-k">return</span> <span class="pl-c1">0</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="29" id="file-tic_tac_toe_check-py-L29"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC29"><span class="pl-k">if</span> <span class="pl-en">line_match</span>(<span class="pl-s1">game</span>) <span class="pl-c1">&gt;</span> <span class="pl-c1">0</span>:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="30" id="file-tic_tac_toe_check-py-L30"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC30"><span class="pl-en">print</span> (<span class="pl-en">str</span>(<span class="pl-en">line_match</span>(<span class="pl-s1">game</span>)) <span class="pl-c1">+</span> <span class="pl-en">str</span>(<span class="pl-s">" row wins!"</span>))</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="31" id="file-tic_tac_toe_check-py-L31"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC31"><span class="pl-k">if</span> <span class="pl-en">line_match</span>(<span class="pl-s1">numpy</span>.<span class="pl-en">transpose</span>(<span class="pl-s1">game</span>)) <span class="pl-c1">&gt;</span> <span class="pl-c1">0</span>:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="32" id="file-tic_tac_toe_check-py-L32"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC32"><span class="pl-en">print</span> (<span class="pl-en">str</span>(<span class="pl-en">line_match</span>(<span class="pl-s1">numpy</span>.<span class="pl-en">transpose</span>(<span class="pl-s1">game</span>))) <span class="pl-c1">+</span> <span class="pl-en">str</span>(<span class="pl-s">" column wins!"</span>))</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="33" id="file-tic_tac_toe_check-py-L33"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC33"><span class="pl-k">if</span> <span class="pl-en">diagonal_match</span>(<span class="pl-s1">game</span>) <span class="pl-c1">&gt;</span> <span class="pl-c1">0</span>:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="34" id="file-tic_tac_toe_check-py-L34"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tic_tac_toe_check-py-LC34"><span class="pl-en">print</span> (<span class="pl-en">str</span>(<span class="pl-en">diagonal_match</span>(<span class="pl-s1">game</span>)) <span class="pl-c1">+</span> <span class="pl-en">str</span>(<span class="pl-s">" diagonal wins!"</span>))</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="gist-meta"><a href="https://gist.github.com/anonymous/b141c876ebc330bfeb13/raw/e2b700961faf3eff1c16b97a0e9e3a90459cb6bb/tic_tac_toe_check.py">view raw</a><a href="https://gist.github.com/anonymous/b141c876ebc330bfeb13#file-tic_tac_toe_check-py">tic_tac_toe_check.py</a><span> </span>hosted with ❤ by<span> </span><a href="https://github.com/">GitHub</a></div>
+</div>
+</div>
+<p></p>
+<p>Using<span> </span><code class="highlighter-rouge">set()</code><span> </span>to simplify the counting.</p>
+<div class="gist" id="gist28214903">
+<div class="gist-file">
+<div class="gist-data">
+<div class="js-gist-file-update-container js-task-list-container file-box">
+<div class="file my-2" id="file-tictactoecheck-py">
+<div class="Box-body p-0 blob-wrapper data type-python" itemprop="text">
+<table class="highlight tab-size js-file-line-container" data-paste-markdown-skip="" data-tab-size="8">
+<tbody>
+<tr>
+<td class="blob-num js-line-number" data-line-number="1" id="file-tictactoecheck-py-L1"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC1"><span class="pl-k">def</span> <span class="pl-en">checkGrid</span>(<span class="pl-s1">grid</span>):</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="2" id="file-tictactoecheck-py-L2"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC2"><span class="pl-c"># rows</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="3" id="file-tictactoecheck-py-L3"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC3"><span class="pl-k">for</span> <span class="pl-s1">x</span> <span class="pl-c1">in</span> <span class="pl-en">range</span>(<span class="pl-c1">0</span>,<span class="pl-c1">3</span>):</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="4" id="file-tictactoecheck-py-L4"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC4"><span class="pl-s1">row</span> <span class="pl-c1">=</span> <span class="pl-en">set</span>([<span class="pl-s1">grid</span>[<span class="pl-s1">x</span>][<span class="pl-c1">0</span>],<span class="pl-s1">grid</span>[<span class="pl-s1">x</span>][<span class="pl-c1">1</span>],<span class="pl-s1">grid</span>[<span class="pl-s1">x</span>][<span class="pl-c1">2</span>]])</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="5" id="file-tictactoecheck-py-L5"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC5"><span class="pl-k">if</span> <span class="pl-en">len</span>(<span class="pl-s1">row</span>) <span class="pl-c1">==</span> <span class="pl-c1">1</span> <span class="pl-c1">and</span> <span class="pl-s1">grid</span>[<span class="pl-s1">x</span>][<span class="pl-c1">0</span>] <span class="pl-c1">!=</span> <span class="pl-c1">0</span>:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="6" id="file-tictactoecheck-py-L6"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC6"><span class="pl-k">return</span> <span class="pl-s1">grid</span>[<span class="pl-s1">x</span>][<span class="pl-c1">0</span>]</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="7" id="file-tictactoecheck-py-L7"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC7"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="8" id="file-tictactoecheck-py-L8"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC8"><span class="pl-c"># columns</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="9" id="file-tictactoecheck-py-L9"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC9"><span class="pl-k">for</span> <span class="pl-s1">x</span> <span class="pl-c1">in</span> <span class="pl-en">range</span>(<span class="pl-c1">0</span>,<span class="pl-c1">3</span>):</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="10" id="file-tictactoecheck-py-L10"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC10"><span class="pl-s1">column</span> <span class="pl-c1">=</span> <span class="pl-en">set</span>([<span class="pl-s1">grid</span>[<span class="pl-c1">0</span>][<span class="pl-s1">x</span>],<span class="pl-s1">grid</span>[<span class="pl-c1">1</span>][<span class="pl-s1">x</span>],<span class="pl-s1">grid</span>[<span class="pl-c1">2</span>][<span class="pl-s1">x</span>]])</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="11" id="file-tictactoecheck-py-L11"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC11"><span class="pl-k">if</span> <span class="pl-en">len</span>(<span class="pl-s1">column</span>) <span class="pl-c1">==</span> <span class="pl-c1">1</span> <span class="pl-c1">and</span> <span class="pl-s1">grid</span>[<span class="pl-c1">0</span>][<span class="pl-s1">x</span>] <span class="pl-c1">!=</span> <span class="pl-c1">0</span>:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="12" id="file-tictactoecheck-py-L12"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC12"><span class="pl-k">return</span> <span class="pl-s1">grid</span>[<span class="pl-c1">0</span>][<span class="pl-s1">x</span>]</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="13" id="file-tictactoecheck-py-L13"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC13"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="14" id="file-tictactoecheck-py-L14"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC14"><span class="pl-c"># diagonals</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="15" id="file-tictactoecheck-py-L15"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC15"><span class="pl-s1">diag1</span> <span class="pl-c1">=</span> <span class="pl-en">set</span>([<span class="pl-s1">grid</span>[<span class="pl-c1">0</span>][<span class="pl-c1">0</span>],<span class="pl-s1">grid</span>[<span class="pl-c1">1</span>][<span class="pl-c1">1</span>],<span class="pl-s1">grid</span>[<span class="pl-c1">2</span>][<span class="pl-c1">2</span>]])</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="16" id="file-tictactoecheck-py-L16"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC16"><span class="pl-s1">diag2</span> <span class="pl-c1">=</span> <span class="pl-en">set</span>([<span class="pl-s1">grid</span>[<span class="pl-c1">0</span>][<span class="pl-c1">2</span>],<span class="pl-s1">grid</span>[<span class="pl-c1">1</span>][<span class="pl-c1">1</span>],<span class="pl-s1">grid</span>[<span class="pl-c1">2</span>][<span class="pl-c1">0</span>]])</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="17" id="file-tictactoecheck-py-L17"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC17"><span class="pl-k">if</span> <span class="pl-en">len</span>(<span class="pl-s1">diag1</span>) <span class="pl-c1">==</span> <span class="pl-c1">1</span> <span class="pl-c1">or</span> <span class="pl-en">len</span>(<span class="pl-s1">diag2</span>) <span class="pl-c1">==</span> <span class="pl-c1">1</span> <span class="pl-c1">and</span> <span class="pl-s1">grid</span>[<span class="pl-c1">1</span>][<span class="pl-c1">1</span>] <span class="pl-c1">!=</span> <span class="pl-c1">0</span>:</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="18" id="file-tictactoecheck-py-L18"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC18"><span class="pl-k">return</span> <span class="pl-s1">grid</span>[<span class="pl-c1">1</span>][<span class="pl-c1">1</span>]</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="19" id="file-tictactoecheck-py-L19"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC19"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="20" id="file-tictactoecheck-py-L20"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC20"><span class="pl-k">return</span> <span class="pl-c1">0</span></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="21" id="file-tictactoecheck-py-L21"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC21"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="22" id="file-tictactoecheck-py-L22"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC22"><span class="pl-s1">winner_is_2</span> <span class="pl-c1">=</span> [[<span class="pl-c1">2</span>, <span class="pl-c1">2</span>, <span class="pl-c1">0</span>],</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="23" id="file-tictactoecheck-py-L23"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC23">[<span class="pl-c1">2</span>, <span class="pl-c1">1</span>, <span class="pl-c1">0</span>],</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="24" id="file-tictactoecheck-py-L24"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC24">[<span class="pl-c1">2</span>, <span class="pl-c1">1</span>, <span class="pl-c1">1</span>]]</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="25" id="file-tictactoecheck-py-L25"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC25"><span class="pl-s1">winner_is_1</span> <span class="pl-c1">=</span> [[<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">0</span>],</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="26" id="file-tictactoecheck-py-L26"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC26">[<span class="pl-c1">2</span>, <span class="pl-c1">1</span>, <span class="pl-c1">0</span>],</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="27" id="file-tictactoecheck-py-L27"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC27">[<span class="pl-c1">2</span>, <span class="pl-c1">1</span>, <span class="pl-c1">1</span>]]</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="28" id="file-tictactoecheck-py-L28"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC28"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="29" id="file-tictactoecheck-py-L29"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC29"><span class="pl-s1">winner_is_also_1</span> <span class="pl-c1">=</span> [[<span class="pl-c1">0</span>, <span class="pl-c1">1</span>, <span class="pl-c1">0</span>],</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="30" id="file-tictactoecheck-py-L30"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC30">[<span class="pl-c1">2</span>, <span class="pl-c1">1</span>, <span class="pl-c1">0</span>],</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="31" id="file-tictactoecheck-py-L31"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC31">[<span class="pl-c1">2</span>, <span class="pl-c1">1</span>, <span class="pl-c1">1</span>]]</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="32" id="file-tictactoecheck-py-L32"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC32"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="33" id="file-tictactoecheck-py-L33"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC33"><span class="pl-s1">no_winner</span> <span class="pl-c1">=</span> [[<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">0</span>],</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="34" id="file-tictactoecheck-py-L34"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC34">[<span class="pl-c1">2</span>, <span class="pl-c1">1</span>, <span class="pl-c1">0</span>],</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="35" id="file-tictactoecheck-py-L35"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC35">[<span class="pl-c1">2</span>, <span class="pl-c1">1</span>, <span class="pl-c1">2</span>]]</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="36" id="file-tictactoecheck-py-L36"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC36"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="37" id="file-tictactoecheck-py-L37"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC37"><span class="pl-s1">also_no_winner</span> <span class="pl-c1">=</span> [[<span class="pl-c1">1</span>, <span class="pl-c1">2</span>, <span class="pl-c1">0</span>],</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="38" id="file-tictactoecheck-py-L38"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC38">[<span class="pl-c1">2</span>, <span class="pl-c1">1</span>, <span class="pl-c1">0</span>],</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="39" id="file-tictactoecheck-py-L39"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC39">[<span class="pl-c1">2</span>, <span class="pl-c1">1</span>, <span class="pl-c1">0</span>]]</td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="40" id="file-tictactoecheck-py-L40"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC40"></td>
+</tr>
+<tr>
+<td class="blob-num js-line-number" data-line-number="41" id="file-tictactoecheck-py-L41"></td>
+<td class="blob-code blob-code-inner js-file-line" id="file-tictactoecheck-py-LC41"><span class="pl-en">print</span>(<span class="pl-en">checkGrid</span>(<span class="pl-s1">also_no_winner</span>))</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="gist-meta"><a href="https://gist.github.com/CurveShot/e98159a400c325dc204f/raw/abb007132a15396e9c158861c420f93037f1c16d/tictactoecheck.py">view raw</a><a href="https://gist.github.com/CurveShot/e98159a400c325dc204f#file-tictactoecheck-py">tictactoecheck.py</a><span> </span>hosted with ❤ by<span> </span><a href="https://github.com/">GitHub</a></div>
+</div>
+</div>
+<p></p>
+<p>Happy hacking!</p>
+<br />25-2 << <a href='25-2.html'>Previous</a> <a href='27-2.html'>Next</a> >> 27-2</div>
+        
+    <!-- footer -->
+      <div class="container">
+        <div class="row pt-3 mx-auto">
+            <p>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </p>
+        </div>
+      </div>
+    <!-- for footer -->
+    
+        </div> <!-- for site wrap -->
+            <!-- <script src="../cmsimde/static/chimper/js/jquery-3.3.1.min.js"></script> -->
+            <script src="../cmsimde/static/chimper/js/jquery-migrate-3.0.1.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/jquery-ui.js"></script>
+            <script src="../cmsimde/static/chimper/js/popper.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/bootstrap.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/owl.carousel.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/jquery.stellar.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/jquery.countdown.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/jquery.magnific-popup.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/bootstrap-datepicker.min.js"></script>
+            <script src="../cmsimde/static/chimper/js/aos.js"></script>
+            <!--
+            <script src="../cmsimde/static/chimper/js/typed.js"></script>
+                    <script>
+                    var typed = new Typed('.typed-words', {
+                    strings: ["Web Apps"," WordPress"," Mobile Apps"],
+                    typeSpeed: 80,
+                    backSpeed: 80,
+                    backDelay: 4000,
+                    startDelay: 1000,
+                    loop: true,
+                    showCursor: true
+                    });
+                    </script>
+            -->
+            <script src="../cmsimde/static/chimper/js/main.js"></script>
+        
+<!-- 啟用 LaTeX equations 編輯 -->
+  <!-- <script>
+  MathJax = {
+    tex: {inlineMath: [['$', '$'], ['\(', '\)']]}
+  };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>-->
+    </body></html>
+        
