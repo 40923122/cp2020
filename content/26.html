@@ -133,30 +133,71 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">About << <a href='About.html'>Previous</a> <a href='gitlab-ci.yml.html'>Next</a> >> gitlab-ci.yml<br /><h1>Hint</h1>
-<ol>
-<li>是否了解如何設定 Github Pages?</li>
-<li>是否了解如何設定 Gitlab Pages?</li>
-<li>是否了解如何設定 Heroku?</li>
-</ol>
-<p>作業一的目的:</p>
-<ol>
-<li>閱讀與電腦軟硬體相關的英文資料, 藉以了解英文相關術語</li>
-<li>了解電腦與網路相關設定</li>
-<li>了解如何使用 Git, Github 與 CMSiMDE</li>
-</ol>
-<p>作業二的目的:</p>
-<ol>
-<li>實際了解 Python 程式在課程推動上的應用</li>
-<li>了解如何從網站超文件資料中擷取所要的資料</li>
-<li>使用 Kaggle 與近端 SciTE 開發 Python 程式</li>
-</ol>
-<p>作業三的目的:</p>
-<ol>
-<li>著手利用 Python 解決各類問題</li>
-<li>利用 Python 修改 Solidworks 與 Inventor 零件尺寸</li>
-</ol>
-<br />About << <a href='About.html'>Previous</a> <a href='gitlab-ci.yml.html'>Next</a> >> gitlab-ci.yml</div>
+    <div id="tipue_search_content">25 << <a href='25.html'>Previous</a> <a href='27.html'>Next</a> >> 27<br /><h1>26</h1>
+<p>Check Tic Tac Toe</p>
+<p>Exercise 26 (and Solution)</p>
+<p><em>This exercise is Part 2 of 4 of the Tic Tac Toe exercise series. The other exercises are:<span> </span><a href="https://www.practicepython.org/exercise/2014/12/27/24-draw-a-game-board.html">Part 1</a>,<span> </span><a href="https://www.practicepython.org/exercise/2015/11/26/27-tic-tac-toe-draw.html">Part 3</a>, and<span> </span><a href="https://www.practicepython.org/exercise/2016/08/03/29-tic-tac-toe-game.html">Part 4</a>.</em></p>
+<p>As you may have guessed, we are trying to build up to a full tic-tac-toe board. However, this is significantly more than half an hour of coding, so we’re doing it in pieces.</p>
+<p>Today, we will simply focus on checking whether someone has WON a game of Tic Tac Toe, not worrying about how the moves were made.</p>
+<p>If a game of Tic Tac Toe is represented as a list of lists, like so:</p>
+<figure class="highlight">
+<pre><code class="language-python" data-lang="python"><span class="n">game</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span></code></pre>
+</figure>
+<p>where a<span> </span><code class="highlighter-rouge">0</code><span> </span>means an empty square, a<span> </span><code class="highlighter-rouge">1</code><span> </span>means that player 1 put their token in that space, and a<span> </span><code class="highlighter-rouge">2</code><span> </span>means that player 2 put their token in that space.</p>
+<p>Your task this week: given a 3 by 3 list of lists that represents a Tic Tac Toe game board, tell me whether anyone has won, and tell me which player won, if any. A Tic Tac Toe win is 3 in a row - either in a row, a column, or a diagonal. Don’t worry about the case where TWO people have won - assume that in every board there will only be one winner.</p>
+<p>Here are some more examples to work with:</p>
+<figure class="highlight">
+<pre><code class="language-python" data-lang="python"><span class="n">winner_is_2</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+
+<span class="n">winner_is_1</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+
+<span class="n">winner_is_also_1</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+
+<span class="n">no_winner</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span>
+
+<span class="n">also_no_winner</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]<br/><br/></span></code></pre>
+</figure>
+<p>Topics</p>
+<p>This exercise is challenging, but doable with only lists (of lists)! Lists of lists are nearly the same as lists, just a bit trickier. Remember that to get the first element in a list called<span> </span><code class="highlighter-rouge">my_list = [5, 10, 15]</code>, you index it with a variable like so:</p>
+<figure class="highlight">
+<pre><code class="language-python" data-lang="python">	<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">my_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+	<span class="mi">5</span>
+	<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">my_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+	<span class="mi">15</span>
+	<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">my_list</span><span class="p">))</span>
+	<span class="mi">3</span></code></pre>
+</figure>
+<p>When working with lists of lists, it is the same! Say you have a list<span> </span><code class="highlighter-rouge">matrix = [[1, 2], [3, 4]]</code>. Then, take a look at this:</p>
+<figure class="highlight">
+<pre><code class="language-python" data-lang="python">	<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+	<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+	<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+	<span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+	<span class="o">&gt;&gt;&gt;</span> <span class="n">first_row</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+	<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">first_row</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+	<span class="mi">1</span>
+	<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+	<span class="mi">1</span>
+	<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+	<span class="mi">4</span></code></pre>
+</figure>
+<p>The cool part is that you can use double-indexing to read the elements from our list of lists<span> </span><code class="highlighter-rouge">matrix</code>! By indexing<span> </span><code class="highlighter-rouge">matrix[0][1]</code><span> </span>we are saying give me the 1st element of the 0th element of<span> </span><code class="highlighter-rouge">matrix</code>, which in this case is<span> </span><code class="highlighter-rouge">2</code>.</p>
+<p>Happy coding!</p>
+<p>Forgot how to<span> </span><a href="https://www.practicepython.org/about/">submit exercises</a>?</p>
+<p></p>
+<br />25 << <a href='25.html'>Previous</a> <a href='27.html'>Next</a> >> 27</div>
         
     <!-- footer -->
       <div class="container">

@@ -133,30 +133,84 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">About << <a href='About.html'>Previous</a> <a href='gitlab-ci.yml.html'>Next</a> >> gitlab-ci.yml<br /><h1>Hint</h1>
+    <div id="tipue_search_content">26 << <a href='26.html'>Previous</a> <br /><h1>27</h1>
+<div><i>Tic Tac Toe Draw</i></div>
+<p>Exercise 27 (and Solution)</p>
+<p><em>This exercise is Part 3 of 4 of the Tic Tac Toe exercise series. The other exercises are:<span> </span><a href="https://www.practicepython.org/exercise/2014/12/27/24-draw-a-game-board.html">Part 1</a>,<span> </span><a href="https://www.practicepython.org/exercise/2015/11/16/26-check-tic-tac-toe.html">Part 2</a>, and<span> </span><a href="https://www.practicepython.org/exercise/2016/08/03/29-tic-tac-toe-game.html">Part 4</a>.</em></p>
+<p>In a<span> </span><a href="https://www.practicepython.org/exercise/2015/11/16/26-check-tic-tac-toe.html">previous exercise</a><span> </span>we explored the idea of using a list of lists as a “data structure” to store information about a tic tac toe game. In a tic tac toe game, the “game server” needs to know where the<span> </span><code class="highlighter-rouge">X</code>s and<span> </span><code class="highlighter-rouge">O</code>s are in the board, to know whether player 1 or player 2 (or whoever is<span> </span><code class="highlighter-rouge">X</code><span> </span>and<span> </span><code class="highlighter-rouge">O</code><span> </span>won).</p>
+<p>There has also been an exercise about<span> </span><a href="https://www.practicepython.org/exercise/2014/12/27/24-draw-a-game-board.html">drawing the actual tic tac toe gameboard</a><span> </span>using text characters.</p>
+<p>The next logical step is to deal with handling user input. When a player (say player 1, who is<span> </span><code class="highlighter-rouge">X</code>) wants to place an<span> </span><code class="highlighter-rouge">X</code><span> </span>on the screen, they can’t just click on a terminal. So we are going to approximate this clicking simply by asking the user for a coordinate of where they want to place their piece.</p>
+<p>As a reminder, our tic tac toe game is really a list of lists. The game starts out with an empty game board like this:</p>
+<figure class="highlight">
+<pre><code class="language-python" data-lang="python"><span class="n">game</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span></code></pre>
+</figure>
+<p>The computer asks Player 1 (X) what their move is (in the format<span> </span><code class="highlighter-rouge">row,col</code>), and say they type<span> </span><code class="highlighter-rouge">1,3</code>. Then the game would print out</p>
+<figure class="highlight">
+<pre><code class="language-python" data-lang="python"><span class="n">game</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">X</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+	<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span></code></pre>
+</figure>
+<p>And ask Player 2 for their move, printing an<span> </span><code class="highlighter-rouge">O</code><span> </span>in that place.</p>
+<p>Things to note:</p>
+<ul>
+<li>For this exercise, assume that player 1 (the first player to move) will always be<span> </span><code class="highlighter-rouge">X</code><span> </span>and player 2 (the second player) will always be<span> </span><code class="highlighter-rouge">O</code>.</li>
+<li>Notice how in the example I gave coordinates for where I want to move starting from (1, 1) instead of (0, 0). To people who don’t program, starting to count at 0 is a strange concept, so it is better for the user experience if the row counts and column counts start at 1. This is not required, but whichever way you choose to implement this, it should be explained to the player.</li>
+<li>Ask the user to enter coordinates in the form “row,col” - a number, then a comma, then a number. Then you can use your Python skills to figure out which row and column they want their piece to be in.</li>
+<li>Don’t worry about checking whether someone won the game, but if a player tries to put a piece in a game position where there already is another piece, do not allow the piece to go there.</li>
+</ul>
+<p>Bonus:</p>
+<ul>
+<li>For the “standard” exercise, don’t worry about “ending” the game - no need to keep track of how many squares are full. In a bonus version, keep track of how many squares are full and automatically stop asking for moves when there are no more valid moves.</li>
+<li></li>
+</ul>
+<p>Concepts</p>
+<p>One review concept that is definitely needed (in addition to the<span> </span><a href="https://www.practicepython.org/exercise/2014/01/29/01-character-input.html">user input</a><span> </span>that is the core of the exercise) is the need to “split” strings.</p>
+<p>The user will input coordinates in the form “row,col”, which<span> </span><code class="highlighter-rouge">input()</code><span> </span>will then read in as a string. But we really want the numbers that come out of that string, to know which row and column to place the piece at.</p>
+<p>One approach is to use the idea of<span> </span><a href="https://www.practicepython.org/exercise/2014/03/12/06-string-lists.html">strings as lists</a><span> </span>to extract the row and column numbers. This works great if your row and column numbers are always single digits - the row will always be at index 0 and the column will always be at index 2. But this breaks when the numbers are larger than one digit (I know, not going to happen in tic tac toe, but it’s easy to image extending this to other games).</p>
+<p>Instead, there are two string manipulation functions that will help you:</p>
 <ol>
-<li>是否了解如何設定 Github Pages?</li>
-<li>是否了解如何設定 Gitlab Pages?</li>
-<li>是否了解如何設定 Heroku?</li>
+<li><a href="https://docs.python.org/2/library/string.html#string.split"><code class="highlighter-rouge">.split()</code></a><span> </span>- Takes a string and returns a list, using the separator as the split criteria. So if you have a string<span> </span><code class="highlighter-rouge">name = "John Doe"</code><span> </span>and do<span> </span><code class="highlighter-rouge">name_list = name.split(" ")</code>,<span> </span><code class="highlighter-rouge">name_list</code><span> </span>will be<span> </span><code class="highlighter-rouge">["John", "Doe"]</code>. You can use any separator / split character you want. Just remember, that each of the elements returned back will be a string as well.</li>
+<li><a href="https://docs.python.org/2/library/string.html#string.strip"><code class="highlighter-rouge">.strip()</code></a><span> </span>- Takes a string and removes the whitespace on the left and right sides of it. So you have a string<span> </span><code class="highlighter-rouge">name = " Michele "</code>, and you do<span> </span><code class="highlighter-rouge">name = name.strip()</code>, and now<span> </span><code class="highlighter-rouge">name</code><span> </span>will just be<span> </span><code class="highlighter-rouge">"Michele"</code><span> </span>- nice and clean.</li>
 </ol>
-<p>作業一的目的:</p>
-<ol>
-<li>閱讀與電腦軟硬體相關的英文資料, 藉以了解英文相關術語</li>
-<li>了解電腦與網路相關設定</li>
-<li>了解如何使用 Git, Github 與 CMSiMDE</li>
+<p>I challenge you to figure out how to use them in the exercise!</p>
+<p>Happy coding!</p>
+<p>Forgot how to<span> </span><a href="https://www.practicepython.org/about/">submit exercises</a>?</p>
+<br/><br/></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
 </ol>
-<p>作業二的目的:</p>
-<ol>
-<li>實際了解 Python 程式在課程推動上的應用</li>
-<li>了解如何從網站超文件資料中擷取所要的資料</li>
-<li>使用 Kaggle 與近端 SciTE 開發 Python 程式</li>
-</ol>
-<p>作業三的目的:</p>
-<ol>
-<li>著手利用 Python 解決各類問題</li>
-<li>利用 Python 修改 Solidworks 與 Inventor 零件尺寸</li>
-</ol>
-<br />About << <a href='About.html'>Previous</a> <a href='gitlab-ci.yml.html'>Next</a> >> gitlab-ci.yml</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><br />26 << <a href='26.html'>Previous</a> </div>
         
     <!-- footer -->
       <div class="container">
